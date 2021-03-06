@@ -12,8 +12,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./ui
+    defaults:
+      run:
+        working-directory: ui
     strategy:
       matrix:
         node-version: [ 12.x ]
@@ -35,7 +36,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           
       - name: Install NPM
-        working-directory: ${{ env.working-direcory }}
         run: npm install
         
       - name: Build
