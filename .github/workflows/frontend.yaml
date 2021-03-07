@@ -1,6 +1,7 @@
 name: Build frontend
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'ui/*'
@@ -11,6 +12,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ui
     strategy:
       matrix:
         node-version: [ 12.x ]
