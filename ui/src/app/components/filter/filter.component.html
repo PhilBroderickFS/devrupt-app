@@ -1,0 +1,16 @@
+<div class="breakfast-list-filter">
+    
+<form class="reservation-form">
+    <mat-form-field>
+        <mat-label>Jump to reservation</mat-label>
+        <input matInput >
+    </mat-form-field>
+</form>
+<form class="search-form">
+    <mat-form-field class="search-form-input">
+        <mat-label>Search by guest, booker, company, booking id, external code or unit name</mat-label>
+        <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+</form>
+
+</div>
