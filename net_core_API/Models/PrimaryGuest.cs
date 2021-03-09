@@ -19,6 +19,8 @@ namespace net_core_API.Models
 
         public DateTime BirthDate{ get; set; }
 
+        public string Gender { get; set; }
+
         public string BirthPlace { get; set; }
 
         public string PrefferredLanguage { get; set; }
