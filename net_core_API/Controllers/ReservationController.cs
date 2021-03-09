@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using net_core_API.Models;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace net_core_API.Controllers
@@ -59,28 +61,35 @@ namespace net_core_API.Controllers
         }
 
 
-        public async Task<User> Authenticate()
+        public async Task<AuthenticatedClient> Authenticate()
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://identity.apaleo.com/connect/authorize");
-
-            request.Content = new StringContent(JsonConvert.SerializeObject(
-                new User() {UserName = "LAIK-SP-TYSJOSH", Password = "odUZ00NCDp1Krty3MdNI4vbt1JW6Sl" }));
-
-            //request.Content.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
-
-            var client = _httpclientFactory.CreateClient();
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var response = await client.SendAsync(request);
-
-            User user = null;
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var responseStream = await response.Content.ReadAsStringAsync();
-                user = JsonConvert.DeserializeObject<User>(responseStream);
-            }
+                var body = "grant_type=client_credentials";
+                var encodedCredentials = Convert.ToBase64String(Encoding.UTF8.GetBytes("LAIK-SP-TYSJOSH:odUZ00NCDp1Krty3MdNI4vbt1JW6Sl"));
 
-            return user;
+                var client = _httpclientFactory.CreateClient();
+
+                using var request = new HttpRequestMessage(HttpMethod.Post, "https://identity.apaleo.com/connect/token");
+                request.Headers.Add("Authorization", $"Basic {encodedCredentials}");
+
+                request.Content = new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded");
+
+                var response = await client.SendAsync(request);
+
+                AuthenticatedClient authenticatedClient = null;
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseStream = await response.Content.ReadAsStringAsync();
+                    authenticatedClient = JsonConvert.DeserializeObject<AuthenticatedClient>(responseStream);
+                }
+
+                return authenticatedClient;
+            }
+            catch (Exception)
+            {
+                return new AuthenticatedClient();
+            }
         }
     }
 }

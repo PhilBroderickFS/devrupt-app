@@ -1,2 +1,5 @@
 ﻿/net_core_API/.vs/net_core_API
 /net_core_API/obj
+/net_core_API/bin/
+.vs
+.vscode
