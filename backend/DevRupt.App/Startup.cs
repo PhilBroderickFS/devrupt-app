@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using DevRupt.Core.Repositories;
+using DevRupt.Core.Services;
+using DevRupt.Data.Repositories;
 
 namespace net_core_API
 {
@@ -19,8 +22,10 @@ namespace net_core_API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            
             services.AddControllersWithViews();
-
 
             services.AddHttpClient("apaleo", client =>
             {
