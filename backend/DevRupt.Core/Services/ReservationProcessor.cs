@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DevRupt.Core.Clients;
-using DevRupt.Core.Repositories;
 using Microsoft.Extensions.Hosting;
 
 namespace DevRupt.Core.Services
