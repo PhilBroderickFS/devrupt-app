@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using DevRupt.Core.Clients;
+using DevRupt.Core.Configuration;
 using DevRupt.Core.Repositories;
 using DevRupt.Core.Services;
 using DevRupt.Data.Repositories;
@@ -13,10 +15,10 @@ namespace DevRupt.App
 {
     public class Startup
     {
-        private readonly IConfiguration configuration;
+        private readonly IConfiguration _configuration;
         public Startup(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            _configuration = configuration;
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -24,14 +26,19 @@ namespace DevRupt.App
         {
             services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddTransient<IApaleoClient, ApaleoClient>();
+
+            services.Configure<ApaleoClientCredentials>(_configuration.GetSection(ApaleoClientCredentials.ApaleoClient));
             
             services.AddControllersWithViews();
 
             services.AddHttpClient("apaleo", client =>
             {
-                client.BaseAddress = new Uri(configuration.GetValue<string>("APALEO_BASE_URL"));
+                client.BaseAddress = new Uri(_configuration.GetValue<string>("APALEO_BASE_URL"));
 
             });
+
+            services.AddHostedService<ReservationProcessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
