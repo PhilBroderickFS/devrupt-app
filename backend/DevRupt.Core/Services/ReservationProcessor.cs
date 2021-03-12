@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DevRupt.Core.Clients;
+using DevRupt.Core.Repositories;
 using Microsoft.Extensions.Hosting;
 
 namespace DevRupt.Core.Services
@@ -9,13 +11,15 @@ namespace DevRupt.Core.Services
     public class ReservationProcessor : IHostedService
     {
         private readonly IApaleoClient _apaleoClient;
+        private readonly IReservationService _reservationService;
         private TimeSpan _interval;
         private Timer _timer;
 
-        public ReservationProcessor(IApaleoClient apaleoClient)
+        public ReservationProcessor(IApaleoClient apaleoClient, IReservationService reservationService)
         {
             _apaleoClient = apaleoClient;
-            _interval = TimeSpan.FromMinutes(1);
+            _reservationService = reservationService;
+            _interval = TimeSpan.FromHours(1);
         }
         
         public Task StartAsync(CancellationToken cancellationToken)
@@ -36,11 +40,19 @@ namespace DevRupt.Core.Services
         {
             var authenticatedClient = await _apaleoClient.AuthenticateClient();
             
-            // check most recent reservation in local storage DB
-            
-            // retrieve all new/update reservations
-            
-            // save to DB
+            var mostRecentReservationProcess = await _reservationService.GetMostRecentReservationProcess();
+
+            if (mostRecentReservationProcess >= DateTime.Now.AddDays(-1))
+            {
+                return;
+            }
+
+            var recentReservations = (await _apaleoClient.GetReservationsFromDate(authenticatedClient, DateTime.Now)).ToList();
+
+            if (recentReservations.Any())
+            {
+                await _reservationService.AddReservations(recentReservations);
+            }
         }
     }
 }

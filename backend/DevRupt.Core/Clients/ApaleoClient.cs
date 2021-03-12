@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +52,12 @@ namespace DevRupt.Core.Clients
             {
                 return new AuthenticatedClientDto();
             }
+        }
+
+        public async Task<IEnumerable<Reservation>> GetReservationsFromDate(AuthenticatedClientDto client, DateTime date)
+        {
+            // TODO call API for latest reservations
+            return new List<Reservation>();
         }
     }
 }

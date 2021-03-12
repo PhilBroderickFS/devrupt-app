@@ -22,5 +22,17 @@ namespace DevRupt.Core.Services
 
             return await _reservationRepository.GetReservationsBetweenDates(startOfDay, endOfDay);
         }
+
+        public async Task<DateTime> GetMostRecentReservationProcess()
+        {
+            // TODO talk to DB to get last run time
+            return DateTime.Now;
+        }
+
+        public Task AddReservations(IEnumerable<Reservation> reservations)
+        {
+            // TODO save reservations to DB
+            return Task.CompletedTask;
+        }
     }
 }

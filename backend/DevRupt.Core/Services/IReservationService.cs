@@ -8,5 +8,7 @@ namespace DevRupt.Core.Services
     public interface IReservationService
     {
         Task<IEnumerable<Reservation>> GetReservationsForDate(DateTime dateTime);
+        Task<DateTime> GetMostRecentReservationProcess();
+        Task AddReservations(IEnumerable<Reservation> reservations);
     }
 }

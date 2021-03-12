@@ -8,5 +8,6 @@ namespace DevRupt.Core.Repositories
     public interface IReservationRepository
     {
         Task<IEnumerable<Reservation>> GetReservationsBetweenDates(DateTime startDate, DateTime endDate);
+        Task<DateTime> GetMostRecentReservationProcess();
     }
 }

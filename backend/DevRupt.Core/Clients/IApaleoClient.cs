@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using DevRupt.Core.Models;
 
 namespace DevRupt.Core.Clients
@@ -6,5 +8,6 @@ namespace DevRupt.Core.Clients
     public interface IApaleoClient
     {
         Task<AuthenticatedClientDto> AuthenticateClient();
+        Task<IEnumerable<Reservation>> GetReservationsFromDate(AuthenticatedClientDto client, DateTime date);
     }
 }
