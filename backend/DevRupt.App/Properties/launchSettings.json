@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "net_core_API": {
+    "DevRupt.App": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

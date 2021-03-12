@@ -9,7 +9,7 @@ using DevRupt.Core.Repositories;
 using DevRupt.Core.Services;
 using DevRupt.Data.Repositories;
 
-namespace net_core_API
+namespace DevRupt.App
 {
     public class Startup
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace net_core_API.Models
+namespace DevRupt.App.Models
 {
     public class PrimaryGuest
     {
 
-        public string FisrtName { get; set; }
+        public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
@@ -23,7 +23,7 @@ namespace net_core_API.Models
 
         public string BirthPlace { get; set; }
 
-        public string PrefferredLanguage { get; set; }
+        public string PreferredLanguage { get; set; }
 
 
     }

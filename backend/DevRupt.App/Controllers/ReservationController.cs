@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using net_core_API.Models;
+using DevRupt.App.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace net_core_API.Controllers
+namespace DevRupt.App.Controllers
 {
     public class ReservationController : Controller
     {

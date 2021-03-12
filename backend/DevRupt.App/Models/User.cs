@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace net_core_API.Models
+namespace DevRupt.App.Models
 {
     public class User
     {

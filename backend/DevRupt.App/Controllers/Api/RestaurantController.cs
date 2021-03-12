@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using DevRupt.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace net_core_API.Controllers.Api
+namespace DevRupt.App.Controllers.Api
 {
     [ApiController]
     [Route("api/[controller]")]

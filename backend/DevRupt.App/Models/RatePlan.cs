@@ -1,4 +1,4 @@
-﻿namespace net_core_API.Models
+﻿namespace DevRupt.App.Models
 {
     public class RatePlan
     {
