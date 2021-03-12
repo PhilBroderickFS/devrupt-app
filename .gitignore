@@ -1,5 +1,6 @@
-﻿/net_core_API/.vs/net_core_API
-/net_core_API/obj
-/net_core_API/bin/
+﻿/backend/.vs/net_core_API
+/backend/**/obj
+/backend/**/bin/
 .vs
 .vscode
+.idea
