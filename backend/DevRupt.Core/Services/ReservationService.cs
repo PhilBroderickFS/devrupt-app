@@ -26,7 +26,7 @@ namespace DevRupt.Core.Services
         public async Task<DateTime> GetMostRecentReservationProcess()
         {
             // TODO talk to DB to get last run time
-            return DateTime.Now;
+            return DateTime.Now.AddDays(-10);
         }
 
         public Task AddReservations(IEnumerable<Reservation> reservations)
