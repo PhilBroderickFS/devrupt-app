@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DevRupt.Core.Models
 {
@@ -13,7 +14,13 @@ namespace DevRupt.Core.Models
         public DateTimeOffset Departure { get; set; }
 
         public PrimaryGuest PrimaryGuest { get; set; }
+        
+        public RatePlan RatePlan { get; set; }
 
         public int Adults { get; set; }
+        
+        public List<ServiceItem> Services { get; set; }
+        
+        public List<Folio> Folios { get; set; }
     }
 }

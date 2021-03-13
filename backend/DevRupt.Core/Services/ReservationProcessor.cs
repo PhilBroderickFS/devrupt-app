@@ -46,10 +46,11 @@ namespace DevRupt.Core.Services
                 return;
             }
 
-            var recentReservations = (await _apaleoClient.GetReservationsFromDate(authenticatedClient, DateTime.Now.AddDays(-10))).ToList();
+            var recentReservations = (await _apaleoClient.GetReservationsFromDate(authenticatedClient, DateTime.Now.AddDays(-1))).ToList();
 
             if (recentReservations.Any())
             {
+                await _apaleoClient.AddFoliosToReservations(authenticatedClient, recentReservations);
                 await _reservationService.AddReservations(recentReservations);
             }
         }
