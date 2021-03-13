@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using DevRupt.Core.Configuration;
+using DevRupt.Core.Helpers;
 using DevRupt.Core.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -54,9 +55,39 @@ namespace DevRupt.Core.Clients
             }
         }
 
-        public async Task<IEnumerable<Reservation>> GetReservationsFromDate(AuthenticatedClientDto client, DateTime date)
+        public async Task<IEnumerable<Reservation>> GetReservationsFromDate(AuthenticatedClientDto authClient, DateTimeOffset date)
         {
-            // TODO call API for latest reservations
+            var queryParams = new Dictionary<string, string>
+            {
+                {"dateFilter", "Arrival"},
+                {"from", date.ToString("yyyy-MM-ddTHH:mm:sszzz")},
+                {"to", DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz")}
+            };
+            
+            try
+            {
+                using var client = _httpClientFactory.CreateClient();
+                client.BaseAddress = new Uri("https://api.apaleo.com/");
+            
+                const string uri = "booking/v1/reservations";
+                var uriWithParams = QueryHelpers.AddQueryString(uri, queryParams);
+            
+                using var request = new HttpRequestMessage(HttpMethod.Get, uriWithParams);
+                request.Headers.Add("Authorization", $"Bearer {authClient.AccessToken}");
+
+                var response = await client.SendAsync(request);
+            
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseStream = await response.Content.ReadAsStringAsync();
+                    var reservations = JsonConvert.DeserializeObject<ReservationList>(responseStream);
+                    return reservations.Reservations;
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
             return new List<Reservation>();
         }
     }

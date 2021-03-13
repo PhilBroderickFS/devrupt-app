@@ -8,6 +8,6 @@ namespace DevRupt.Core.Clients
     public interface IApaleoClient
     {
         Task<AuthenticatedClientDto> AuthenticateClient();
-        Task<IEnumerable<Reservation>> GetReservationsFromDate(AuthenticatedClientDto client, DateTime date);
+        Task<IEnumerable<Reservation>> GetReservationsFromDate(AuthenticatedClientDto client, DateTimeOffset date);
     }
 }

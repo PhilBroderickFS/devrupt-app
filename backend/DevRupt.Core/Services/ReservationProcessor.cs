@@ -46,7 +46,7 @@ namespace DevRupt.Core.Services
                 return;
             }
 
-            var recentReservations = (await _apaleoClient.GetReservationsFromDate(authenticatedClient, DateTime.Now)).ToList();
+            var recentReservations = (await _apaleoClient.GetReservationsFromDate(authenticatedClient, DateTime.Now.AddDays(-10))).ToList();
 
             if (recentReservations.Any())
             {
