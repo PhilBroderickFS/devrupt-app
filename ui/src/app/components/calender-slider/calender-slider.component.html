@@ -1,0 +1,32 @@
+<div>
+    <table class="calender">
+        <thead>
+            <tr>
+                <th class="label-column"></th>
+                <th class="actions-column"></th>
+                <th *ngFor="let day of days$ | async" class="time-column">
+                    {{day.dayMonth}}
+                    <span>{{ day.longDay }}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="label-column">
+                    <span>Total booked for breakfast</span>
+                </td>
+                <td class="actions-column">
+                    <p><a>
+                        <span class="material-icons">menu_open</span>
+                    </a></p>
+                </td>
+                <td *ngFor="let bookings of bookings$ | async; let i = index" class="time-column" (click)="onDaySelected(i)">
+                    <span class="cell-border">
+                        <span class="cell-background"></span>
+                        <span class="cell-value">{{ bookings }}</span>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { CalenderService } from './../../core/services/calender.service';
 import { FilterService } from './../../core/services/filter.service';
 import { ReservationService } from './../../core/services/reservation.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -10,18 +12,33 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./restaurant-list.component.css']
 })
 export class RestaurantListComponent implements OnInit {
-  columnsToDisplay = ['ref', 'name', 'room', 'arrival', 'departure', 'actions'];
-  reservations: Reservation[];
-  dataSource = new MatTableDataSource(this.reservations);
+  @Input() columnsToDisplay: string[];
 
-  constructor(private reservationService: ReservationService, private filterService: FilterService) { }
+  reservations: Reservation[];
+  dataSource = new MatTableDataSource();
+  reservations2: Reservation[];
+
+  constructor(
+    private reservationService: ReservationService, 
+    private filterService: FilterService, 
+    private calenderService: CalenderService) { }
 
   ngOnInit(): void {
-    this.reservations = this.reservationService.getReservationsForToday();
+    // hate all these manual subscriptions - but hey, it's a hackathon! :D
+
+    this.reservationService.getReservationsForToday()
+      .subscribe(response => this.reservations = response);
+
     this.dataSource.data = this.reservations;
 
     this.filterService.filter.subscribe((filterValue) => {
       this.dataSource.filter = filterValue;
     })
+
+    this.calenderService.dateSelected.subscribe((dateSelected) => {
+      this.reservationService.getReservationsForDate(dateSelected)
+      .subscribe(reservations => this.reservations2 = reservations);
+    })
+
   }
 }

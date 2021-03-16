@@ -1,18 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Reservation } from 'src/app/shared/models/guest.model';
+import { Observable, from, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
+  private reservationsUrl = 'api/reservations';
+
   reservations: Reservation[] = [];
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
-  getReservationsForToday = () : Reservation[] => {
-    let res = new Reservation('1', 'Phil Broderick', '1', new Date(), new Date());
+  getReservationsForToday() : Observable<Reservation[]> {
+    return this.httpClient.get<Reservation[]>(this.reservationsUrl);
+  }
 
-    this.reservations.push(res);
+  getNextNDayReservationNos(numOfDays: number): Observable<number[]> {
+    // TODO retrieve from API 
+    return of([1,2,3,4,5,6,7,32,1,10,11]);
+  }
 
-    return this.reservations;
+  getReservationsForDate(date: Date): Observable<Reservation[]> {
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let formattedDate = `${day}-${month}-${year}`;
+
+    return this.httpClient.get<Reservation[]>(`${this.reservationsUrl}/${formattedDate}`);
   }
 }
