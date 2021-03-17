@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System;
 using DevRupt.Core.Clients;
 using DevRupt.Core.Configuration;
 using DevRupt.Core.Repositories;
 using DevRupt.Core.Services;
-using DevRupt.Data.Repositories;
+using DevRupt.App.Data;
+using DevRupt.App.Repositories;
 
 namespace DevRupt.App
 {
@@ -23,6 +25,9 @@ namespace DevRupt.App
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(_configuration.GetConnectionString("ReservationConnection")));
+
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<IReservationRepository, ReservationRepository>();
             services.AddTransient<IApaleoClient, ApaleoClient>();
