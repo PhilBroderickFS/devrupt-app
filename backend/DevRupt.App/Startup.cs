@@ -9,9 +9,8 @@ using DevRupt.Core.Clients;
 using DevRupt.Core.Configuration;
 using DevRupt.Core.Repositories;
 using DevRupt.Core.Services;
-using DevRupt.Data.Repositories;
-using DevRupt.Data;
-using DevRupt.Data.Dtos;
+using DevRupt.App.Data;
+using DevRupt.App.Repositories;
 
 namespace DevRupt.App
 {
@@ -28,7 +27,7 @@ namespace DevRupt.App
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("ReservationConnection")));
-            services.AddAutoMapper(typeof(AutoMapping).Assembly);
+
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<IReservationRepository, ReservationRepository>();
             services.AddTransient<IApaleoClient, ApaleoClient>();

@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DevRupt.App.Data;
+using DevRupt.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace DevRupt.Data.Repositories
+namespace DevRupt.App.Repositories
 {
     public abstract class RepositoryBase<T> : IRepsoitoryBase<T> where T : class
     {

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DevRupt.Core.Models
 {
     public class Reservation
     {
+        [Key]
         public string Id { get; set; }
 
         public string BookingId { get; set; }

@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 
 
-namespace DevRupt.Data
+namespace DevRupt.App.Data
 {
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            Database.Migrate();
+
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -19,6 +19,18 @@ namespace DevRupt.Data
         }
 
         public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<PrimaryGuest> PrimaryGuests { get; set; }
+
+        public DbSet<RatePlan> RatePlans { get; set; }
+
+        public DbSet<ServiceItem> ServiceItems { get; set; }
+
+        public DbSet<Folio> Folios { get; set; }
+
+        public DbSet<Charge> Charges { get; set; }
+
+        public DbSet<Address> Addresses { get; set; }
 
 
     }
