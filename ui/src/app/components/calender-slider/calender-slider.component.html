@@ -13,12 +13,15 @@
         <tbody>
             <tr>
                 <td class="label-column">
-                    <span>Total booked for breakfast</span>
+                    <span>
+                        <span class="indicator"></span>
+                        Total booked for breakfast
+                    </span>
                 </td>
                 <td class="actions-column">
-                    <p><a>
+                    <a>
                         <span class="material-icons">menu_open</span>
-                    </a></p>
+                    </a>
                 </td>
                 <td *ngFor="let bookings of bookings$ | async; let i = index" class="time-column" (click)="onDaySelected(i)">
                     <span class="cell-border">
