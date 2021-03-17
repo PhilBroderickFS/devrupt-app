@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DevRupt.Core.Models;
 using DevRupt.Core.Repositories;
-using DevRupt.Data.Dtos;
 
 namespace DevRupt.Data.Repositories
 {
@@ -32,8 +31,6 @@ namespace DevRupt.Data.Repositories
             throw new NotImplementedException();
         }
 
-    
-
         public async Task CreateReservationAsync(Reservation reservation)
         {
             Create(reservation);
@@ -45,12 +42,6 @@ namespace DevRupt.Data.Repositories
             Delete(reservation);
             await SaveAsync();
 
-        }
-
-        public async Task UpdateBookAsync(ReservationDto dbReservation)
-        {
-            Update(_mapper.Map<Reservation>(dbReservation));
-            await SaveAsync();
         }
 
         public async Task<Reservation> GetReservationByIdAsync(int ReservationId)
