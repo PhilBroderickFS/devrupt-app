@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DevRupt.App.Repositories
 {
-    public abstract class RepositoryBase<T> : IRepsoitoryBase<T> where T : class
+    public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
         protected ApplicationDbContext applicationDbContext;
         public RepositoryBase(ApplicationDbContext _applicationDbContext)

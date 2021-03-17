@@ -1,9 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DevRupt.Core.Models
 {
     public class PrimaryGuest
     {
+        [Key] 
+        public int Id { get; set; }
+        
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

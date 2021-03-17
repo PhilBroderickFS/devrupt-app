@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading.Tasks;
 using DevRupt.Core.Clients;
 using DevRupt.Core.Configuration;
 using DevRupt.Core.Repositories;
@@ -51,6 +52,7 @@ namespace DevRupt.App
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                InitializeDatabase(app).GetAwaiter().GetResult();
             }
 
             app.UseHttpsRedirection();
@@ -64,6 +66,14 @@ namespace DevRupt.App
                     name: "default",
                     pattern: "{controller=Reservation}/{action=Index}/{id?}");
             });
+        }
+
+        private static async Task InitializeDatabase(IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+            var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            await dbContext.Database.MigrateAsync();
         }
     }
 }
