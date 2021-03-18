@@ -2,3 +2,28 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.link-container {
+    width: 15%;
+    margin: 20px 0 0 20px;
+}
+
+.link-button {
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.link-button:hover {
+    background-color: #d6d6d6;
+}
+
+.link-button:visited {
+    color: black;
+}
+
+.link-button span {
+    margin-right: 5px;
+}

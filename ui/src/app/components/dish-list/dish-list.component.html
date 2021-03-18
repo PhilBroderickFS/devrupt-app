@@ -1,0 +1,16 @@
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let dish of dishes; let i = index" [expanded]="step === i" (opened)="setStep(i)">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{ dish.name }}
+            </mat-panel-title>
+            <mat-panel-description>
+                x {{ dish.ingredients.length }}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngFor="let ingredient of dish.ingredients">
+            <p>{{ ingredient.name }}</p>
+            <span>{{ ingredient.amount }}</span>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
