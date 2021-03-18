@@ -3,21 +3,22 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DevRupt.Core.Clients;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace DevRupt.Core.Services
 {
     public class ReservationProcessor : IHostedService
     {
-        private readonly IApaleoClient _apaleoClient;
-        private readonly IReservationService _reservationService;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
+        private IApaleoClient _apaleoClient;
+        private IReservationService _reservationService;
         private TimeSpan _interval;
         private Timer _timer;
 
-        public ReservationProcessor(IApaleoClient apaleoClient, IReservationService reservationService)
+        public ReservationProcessor(IServiceScopeFactory serviceScopeFactory)
         {
-            _apaleoClient = apaleoClient;
-            _reservationService = reservationService;
+            _serviceScopeFactory = serviceScopeFactory;
             _interval = TimeSpan.FromHours(1);
         }
         
@@ -37,6 +38,10 @@ namespace DevRupt.Core.Services
 
         private async Task ProcessReservationsAsync()
         {
+            using var scope = _serviceScopeFactory.CreateScope();
+            _apaleoClient = scope.ServiceProvider.GetRequiredService<IApaleoClient>();
+            _reservationService = scope.ServiceProvider.GetRequiredService<IReservationService>();
+            
             var authenticatedClient = await _apaleoClient.AuthenticateClient();
             
             var mostRecentReservationProcess = await _reservationService.GetMostRecentReservationProcess();
@@ -46,7 +51,7 @@ namespace DevRupt.Core.Services
                 return;
             }
 
-            var recentReservations = (await _apaleoClient.GetReservationsFromDate(authenticatedClient, DateTime.Now.AddDays(-1))).ToList();
+            var recentReservations = (await _apaleoClient.GetReservationsFromDate(authenticatedClient, mostRecentReservationProcess)).ToList();
 
             if (recentReservations.Any())
             {
