@@ -16,6 +16,21 @@ namespace DevRupt.App.Data
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // Add your customizations after calling base.OnModelCreating(builder);
+            builder.Entity<Reservation>()
+                .HasOne(r => r.RatePlan);
+
+            builder.Entity<Reservation>()
+                .HasOne(r => r.PrimaryGuest);
+
+            builder.Entity<RatePlan>()
+                .HasMany(r => r.Reservations)
+                .WithOne(r => r.RatePlan);
+
+            builder.Entity<Folio>().HasKey(f => new {f.Id, f.ReservationId });
+            
+            builder.Entity<Folio>().Ignore(f => f.RelatedFolios);
+
+            builder.Entity<Folio>().HasOne(f => f.Reservation);
         }
 
         public DbSet<Reservation> Reservations { get; set; }
@@ -32,6 +47,6 @@ namespace DevRupt.App.Data
 
         public DbSet<Address> Addresses { get; set; }
 
-
+    
     }
 }

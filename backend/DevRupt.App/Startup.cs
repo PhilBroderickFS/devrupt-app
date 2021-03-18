@@ -31,6 +31,8 @@ namespace DevRupt.App
 
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<IReservationRepository, ReservationRepository>();
+            services.AddTransient<IFolioRepository, FolioRepository>();
+            services.AddTransient<IRatePlanRepository, RatePlanRepository>();
             services.AddTransient<IApaleoClient, ApaleoClient>();
 
             services.Configure<ApaleoClientCredentials>(_configuration.GetSection(ApaleoClientCredentials.ApaleoClient));
