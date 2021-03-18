@@ -17,6 +17,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { HttpClientInMemoryWebApiModule  } from 'angular-in-memory-web-api';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,6 +25,8 @@ import { KitchenComponent } from './components/kitchen/kitchen.component';
 import { CalenderSliderComponent } from './components/calender-slider/calender-slider.component';
 import { MealSetComponent } from './components/meal-set/meal-set.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DishListComponent } from './components/dish-list/dish-list.component';
+import { DishComponent } from './components/dish/dish.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { AppRoutingModule } from './app-routing.module';
     FilterComponent,
     KitchenComponent,
     CalenderSliderComponent,
-    MealSetComponent
+    MealSetComponent,
+    DishListComponent,
+    DishComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +48,7 @@ import { AppRoutingModule } from './app-routing.module';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatExpansionModule,
     HttpClientModule,
     // TODO Only used in test - remove when ready to pull data from backend
     HttpClientInMemoryWebApiModule.forRoot(
