@@ -22,6 +22,8 @@ import { HttpClientInMemoryWebApiModule  } from 'angular-in-memory-web-api';
 import { HttpClientModule } from '@angular/common/http';
 import { KitchenComponent } from './components/kitchen/kitchen.component';
 import { CalenderSliderComponent } from './components/calender-slider/calender-slider.component';
+import { MealSetComponent } from './components/meal-set/meal-set.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { CalenderSliderComponent } from './components/calender-slider/calender-s
     ManagementComponent,
     FilterComponent,
     KitchenComponent,
-    CalenderSliderComponent
+    CalenderSliderComponent,
+    MealSetComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { CalenderSliderComponent } from './components/calender-slider/calender-s
     // TODO Only used in test - remove when ready to pull data from backend
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryReservationService, {dataEncapsulation: false}
-    )
+    ),
+    AppRoutingModule
   ],
   providers: [NotificationService, ReservationService, FilterService ],
   bootstrap: [AppComponent]
