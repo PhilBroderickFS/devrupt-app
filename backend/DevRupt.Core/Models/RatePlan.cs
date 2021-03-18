@@ -1,4 +1,7 @@
-﻿namespace DevRupt.Core.Models
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace DevRupt.Core.Models
 {
     public class RatePlan
     {
@@ -11,5 +14,7 @@
         public string Description { get; set; }
 
         public bool IsSubjectToCityTax { get; set; }
+        
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }

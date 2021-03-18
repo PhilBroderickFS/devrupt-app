@@ -26,6 +26,13 @@
 .actions-column {
     width: 56px;
     padding: 0 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.actions-column a:hover {
+    cursor: pointer;
 }
 
 .calender thead th span {
@@ -40,6 +47,8 @@
     width: 180px;
     padding: 10px 8px;
     min-height: 55px;
+    display: flex;
+    align-items: center;
 }
 
 .calender td.time-column {
@@ -74,4 +83,11 @@
     opacity: 0.2;
     background-color: #ffab91;
     height: 100%;
+}
+
+.indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #ffab91;
 }

@@ -12,13 +12,9 @@ namespace DevRupt.App.Repositories
     public class ReservationRepository : RepositoryBase<Reservation>, IReservationRepository
     {
 
-        private readonly ApplicationDbContext _context;
-  
-
-        public ReservationRepository(ApplicationDbContext _applicationDbContext) :
-            base(_applicationDbContext)
+        public ReservationRepository(ApplicationDbContext applicationDbContext) :
+            base(applicationDbContext)
         {
-            _context = _applicationDbContext;
         }
 
         public Task<IEnumerable<Reservation>> GetReservationsBetweenDates(DateTime startDate, DateTime endDate)
@@ -33,6 +29,13 @@ namespace DevRupt.App.Repositories
 
         public async Task CreateReservationAsync(Reservation reservation)
         {
+            var reservationExists = (await FindByConditionAync(r => r.Id.Equals(reservation.Id))).FirstOrDefault();
+            
+            if (reservationExists != null)
+            {
+                return;
+            }
+            
             Create(reservation);
             await SaveAsync();
         }

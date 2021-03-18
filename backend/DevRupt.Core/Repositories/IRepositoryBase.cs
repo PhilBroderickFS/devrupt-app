@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DevRupt.Data.Repositories
 {
-    public interface IRepsoitoryBase<T>
+    public interface IRepositoryBase<T>
     {
 
         Task<IEnumerable<T>> FindAllAsync();

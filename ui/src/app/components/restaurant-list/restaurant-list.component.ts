@@ -15,7 +15,7 @@ export class RestaurantListComponent implements OnInit {
   @Input() columnsToDisplay: string[];
 
   reservations: Reservation[];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<Reservation>();
   reservations2: Reservation[];
 
   constructor(
@@ -27,9 +27,8 @@ export class RestaurantListComponent implements OnInit {
     // hate all these manual subscriptions - but hey, it's a hackathon! :D
 
     this.reservationService.getReservationsForToday()
-      .subscribe(response => this.reservations = response);
+      .subscribe(response => this.dataSource.data = response);
 
-    this.dataSource.data = this.reservations;
 
     this.filterService.filter.subscribe((filterValue) => {
       this.dataSource.filter = filterValue;

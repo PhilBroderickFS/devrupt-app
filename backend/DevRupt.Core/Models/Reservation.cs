@@ -17,6 +17,7 @@ namespace DevRupt.Core.Models
 
         public PrimaryGuest PrimaryGuest { get; set; }
         
+        public string RatePlanId { get; set; }
         public RatePlan RatePlan { get; set; }
 
         public int Adults { get; set; }

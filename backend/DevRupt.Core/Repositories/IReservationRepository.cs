@@ -9,5 +9,6 @@ namespace DevRupt.Core.Repositories
     {
         Task<IEnumerable<Reservation>> GetReservationsBetweenDates(DateTime startDate, DateTime endDate);
         Task<DateTime> GetMostRecentReservationProcess();
+        Task CreateReservationAsync(Reservation reservation);
     }
 }
