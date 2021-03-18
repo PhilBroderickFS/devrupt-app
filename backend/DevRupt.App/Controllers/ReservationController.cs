@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using DevRupt.Core.Clients;
 
 namespace DevRupt.App.Controllers
 {
@@ -13,15 +14,17 @@ namespace DevRupt.App.Controllers
     {
 
         private readonly IHttpClientFactory _httpclientFactory;
+        private readonly IApaleoClient _apaleoClient;
 
-        public ReservationController(IHttpClientFactory httpClientFactory)
+        public ReservationController(IHttpClientFactory httpClientFactory, IApaleoClient apaleoClient)
         {
             _httpclientFactory = httpClientFactory;
+            _apaleoClient = apaleoClient;
         }
 
         public async Task<IActionResult> Index()
         {
-            var user = Authenticate();
+            var user = await _apaleoClient.AuthenticateClient();
 
             if (user == null)
                 return View();
@@ -57,38 +60,6 @@ namespace DevRupt.App.Controllers
                 }
             }
             return View(reservation);
-        }
-
-
-        public async Task<AuthenticatedClient> Authenticate()
-        {
-            try
-            {
-                var body = "grant_type=client_credentials";
-                var encodedCredentials = Convert.ToBase64String(Encoding.UTF8.GetBytes("LAIK-SP-TYSJOSH:odUZ00NCDp1Krty3MdNI4vbt1JW6Sl"));
-
-                var client = _httpclientFactory.CreateClient();
-
-                using var request = new HttpRequestMessage(HttpMethod.Post, "https://identity.apaleo.com/connect/token");
-                request.Headers.Add("Authorization", $"Basic {encodedCredentials}");
-
-                request.Content = new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded");
-
-                var response = await client.SendAsync(request);
-
-                AuthenticatedClient authenticatedClient = null;
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseStream = await response.Content.ReadAsStringAsync();
-                    authenticatedClient = JsonConvert.DeserializeObject<AuthenticatedClient>(responseStream);
-                }
-
-                return authenticatedClient;
-            }
-            catch (Exception)
-            {
-                return new AuthenticatedClient();
-            }
         }
     }
 }
