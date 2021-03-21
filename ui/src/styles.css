@@ -4,8 +4,14 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .link-container {
-    width: 15%;
-    margin: 20px 0 0 20px;
+    padding: 0 0 20px 20px;
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #dedede;
+    display: flex;
+}
+
+.main-container {
+    padding: 0px 20px;
 }
 
 .link-button {
@@ -14,6 +20,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     align-items: center;
     border-radius: 5px;
     padding: 5px;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.main-button {
+    color: #f19722;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.link-button.main-button:visited {
+    color: #f19722;
 }
 
 .link-button:hover {

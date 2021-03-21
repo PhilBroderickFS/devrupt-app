@@ -13,6 +13,10 @@ export class CalenderService {
   constructor() { }
 
   getNextNDays(numOfDays: number) : Observable<Day[]> {
+    if(this.days.length == numOfDays) {
+      return of(this.days);
+    }
+
     let today = new Date();
     for (let i = 0; i < numOfDays; i++) {
       let date = new Date(today);

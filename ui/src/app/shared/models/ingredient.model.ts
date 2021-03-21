@@ -1,4 +1,5 @@
 export class Ingredient {
     name: string;
-    amount: string;
+    amount: number;
+    measurement: string;
 }
