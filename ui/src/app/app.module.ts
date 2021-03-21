@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { HttpClientInMemoryWebApiModule  } from 'angular-in-memory-web-api';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,6 +30,7 @@ import { DishListComponent } from './components/dish-list/dish-list.component';
 import { DishComponent } from './components/dish/dish.component';
 import { RecommendedSetsComponent } from './components/recommended-sets/recommended-sets.component';
 import { IngredientsListComponent } from './components/ingredients-list/ingredients-list.component';
+import { DishNumberSelectionDialogComponent } from './components/dish-number-selection-dialog/dish-number-selection-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { IngredientsListComponent } from './components/ingredients-list/ingredie
     DishListComponent,
     DishComponent,
     RecommendedSetsComponent,
-    IngredientsListComponent
+    IngredientsListComponent,
+    DishNumberSelectionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { IngredientsListComponent } from './components/ingredients-list/ingredie
     MatFormFieldModule,
     MatButtonModule,
     MatExpansionModule,
+    MatDialogModule,
     HttpClientModule,
     // TODO Only used in test - remove when ready to pull data from backend
     HttpClientInMemoryWebApiModule.forRoot(

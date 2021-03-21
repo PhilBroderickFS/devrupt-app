@@ -1,0 +1,23 @@
+<div class="header-container">
+    <h3>
+        Change number of dishes
+    </h3>
+    <span>Applies per set of dishes</span>
+</div>
+<div class="input-container">
+    <button (click)="decrementDishes()">
+        <span class="material-icons">keyboard_arrow_left</span>
+    </button>
+    <span class="dish-container">
+        {{ data.numOfDishes }}
+    </span>
+    <button (click)="incrementDishes()">
+        <span class="material-icons">keyboard_arrow_right</span>
+    </button>
+</div>
+<div class="button-container">
+    <button mat-raised-button (click)="onCloseClick()">Calculate</button>
+    <a (click)="onCloseClick()" class="link-button">
+        Cancel
+    </a>
+</div>
