@@ -11,7 +11,7 @@
             </p>
         </div>
         <div class="flex-basis-50 cell-container color-{{i + 1}}">
-            <span class="cell-border">
+            <span class="cell-border" [class.selected]="isSelectedSet(set.name)" (click)="selectSet(set.name)">
                 <span class="cell-background"></span>
                 <span class="cell-value">{{ set.compatability }}</span>
             </span>

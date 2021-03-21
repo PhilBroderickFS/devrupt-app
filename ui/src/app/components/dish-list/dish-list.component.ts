@@ -1,34 +1,8 @@
+import { DishService } from './../../core/services/dish.service';
 import { Dish } from './../../shared/models/dish.model';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
-
-const DATA: Dish[] = [
-  { 
-    name: 'Dish A', 
-    ingredients: [
-      { 
-        name: 'Ingredient A',
-        amount: 3,
-        measurement: "kg"
-      }
-    ]
-  },
-  { 
-    name: 'Dish B', 
-    ingredients: [
-      { 
-        name: 'Ingredient A',
-        amount: 3,
-        measurement: "kg"
-      },
-      { 
-        name: 'Ingredient B',
-        amount: 200,
-        measurement: "ml"
-      }
-    ]
-  }
-]
 
 
 @Component({
@@ -38,13 +12,17 @@ const DATA: Dish[] = [
 })
 export class DishListComponent implements OnInit {
 
-  step = DATA.length;
-
-  dishes: Dish[] = DATA;
-  constructor() { 
+  step: number;
+  constructor(private dishService: DishService) { 
   }
 
-  ngOnInit(): void {}
+  dishes$: Observable<Dish[]> = this.dishService.selectedDishes;
+
+  ngOnInit(): void {
+    this.dishes$.subscribe(res => {
+      this.step = res.length;
+    })
+  }
 
 
   setStep(index: number) {

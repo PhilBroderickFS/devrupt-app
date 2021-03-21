@@ -12,8 +12,17 @@ export class RecommendedSetsComponent implements OnInit {
 
   constructor(private dishService: DishService) { }
 
-  sets$: Observable<Set[]> = this.dishService.getSets(new Date);
+  selectedSet$ = this.dishService.selectedSet;
+  sets$ = this.dishService.set$;
+  
   ngOnInit(): void {
   }
 
+  selectSet(name: string) {
+    this.dishService.setSelectedSet(name);
+  }
+
+  isSelectedSet(name: string): boolean {
+    return this.selectedSet$.value.name.toUpperCase() === name.toUpperCase();
+  }
 }

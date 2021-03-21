@@ -1,5 +1,5 @@
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let dish of dishes; let i = index" [expanded]="step === i" (opened)="setStep(i)">
+    <mat-expansion-panel *ngFor="let dish of dishes$ | async; let i = index" [expanded]="step === i" (opened)="setStep(i)">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 {{ dish.name }}

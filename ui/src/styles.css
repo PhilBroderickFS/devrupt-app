@@ -27,6 +27,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .main-button {
     color: #f19722;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .link-button.main-button:visited {

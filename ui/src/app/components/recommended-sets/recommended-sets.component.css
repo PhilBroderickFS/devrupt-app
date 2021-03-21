@@ -20,7 +20,7 @@
 
 .cell-border {
     height: 40px;
-    width: 25%;
+    width: 27%;
     position: relative;
     display: flex;
     align-items: center;
@@ -36,6 +36,11 @@
     cursor: pointer;
 }
 
+.cell-border.selected:hover {
+    opacity: 1;
+    cursor: default;
+}
+
 .cell-background {
     position: absolute;
     left: 0;
@@ -44,6 +49,10 @@
     opacity: 0.2;
     background-color: #ffab91;
     height: 100%;
+}
+
+.selected {
+    background-color: #bbb9b9;
 }
 
 .indicator {

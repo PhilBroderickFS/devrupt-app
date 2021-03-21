@@ -12,7 +12,7 @@ export class IngredientsListComponent implements OnInit {
 
   constructor(private dishService: DishService) { }
 
-  totalIngredients$: Observable<Ingredient[]> = this.dishService.getIngredientTotals();
+  totalIngredients$: Observable<Ingredient[]> = this.dishService.selectedIngredientTotals;
 
   ngOnInit(): void {
   }

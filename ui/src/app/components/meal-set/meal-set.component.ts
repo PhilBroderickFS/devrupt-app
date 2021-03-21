@@ -1,3 +1,4 @@
+import { DishService } from './../../core/services/dish.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MealSetComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dishService: DishService) { }
 
   ngOnInit(): void {
   }
