@@ -1,0 +1,11 @@
+.ingredients-container {
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+    padding: 20px
+}
+
+.ingredient-container {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 40px;
+    padding-left: 20px;
+}

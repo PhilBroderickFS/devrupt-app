@@ -1,4 +1,17 @@
 <header class="page-header">
+  <div>
+    <a routerLink="/" *ngIf="!this.defaultRoute" class="back-link">
+      <span class="material-icons">
+        keyboard_arrow_left
+      </span>
+      <span>
+        PhilBroderick
+      </span>
+    </a>
+    <span *ngIf="this.defaultRoute">
+      PhilBroderick
+    </span>
+  </div>
   <h1>Guacamole</h1>
 </header>
 <div class="tab-container">

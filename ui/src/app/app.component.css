@@ -3,6 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     background-color: #f5f5f5;
+    flex-direction: column;
 }
 
 .page-header h1 {
@@ -10,6 +11,18 @@
     margin: 0 0 16px;
 }
 
-.tab-container {
-    margin: 20px 0 0 20px;
+.back-link {
+    display: flex;
+    align-items: center;
+    margin-left: -25px;
+    text-decoration: none;
+    color: #363942;
+}
+
+.back-link:visited {
+    color: #363942;
+}
+
+.back-link>.material-icons {
+    width: 25px;
 }

@@ -9,7 +9,7 @@ export class InMemoryReservationService implements InMemoryDbService {
 
   createDb() {
     const reservations = [];
-    let res = new Reservation('1', 'Phil Broderick', '1', new Date(), new Date());
+    let res = new Reservation('D34GF3','1', 'Phil Broderick', '1', new Date(), new Date());
     reservations.push(res);
     return {reservations};
   }

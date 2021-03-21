@@ -27,6 +27,8 @@ import { MealSetComponent } from './components/meal-set/meal-set.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DishListComponent } from './components/dish-list/dish-list.component';
 import { DishComponent } from './components/dish/dish.component';
+import { RecommendedSetsComponent } from './components/recommended-sets/recommended-sets.component';
+import { IngredientsListComponent } from './components/ingredients-list/ingredients-list.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { DishComponent } from './components/dish/dish.component';
     CalenderSliderComponent,
     MealSetComponent,
     DishListComponent,
-    DishComponent
+    DishComponent,
+    RecommendedSetsComponent,
+    IngredientsListComponent
   ],
   imports: [
     BrowserModule,

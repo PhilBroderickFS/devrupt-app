@@ -8,7 +8,8 @@ const DATA: Dish[] = [
     ingredients: [
       { 
         name: 'Ingredient A',
-        amount: '3kg'
+        amount: 3,
+        measurement: "kg"
       }
     ]
   },
@@ -17,11 +18,13 @@ const DATA: Dish[] = [
     ingredients: [
       { 
         name: 'Ingredient A',
-        amount: '3kg'
+        amount: 3,
+        measurement: "kg"
       },
       { 
         name: 'Ingredient B',
-        amount: '200ml'
+        amount: 200,
+        measurement: "ml"
       }
     ]
   }
