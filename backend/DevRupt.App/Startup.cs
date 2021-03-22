@@ -8,10 +8,10 @@ using System;
 using System.Threading.Tasks;
 using DevRupt.Core.Clients;
 using DevRupt.Core.Configuration;
-using DevRupt.Core.Repositories;
 using DevRupt.Core.Services;
 using DevRupt.App.Data;
 using DevRupt.App.Repositories;
+using DevRupt.Core.Contracts;
 
 namespace DevRupt.App
 {
@@ -27,23 +27,20 @@ namespace DevRupt.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(_configuration.GetConnectionString("ReservationConnection")));
+                options.UseSqlServer(_configuration.GetConnectionString("ReservationAzureConnection")));
 
+            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<IReservationRepository, ReservationRepository>();
             services.AddTransient<IFolioRepository, FolioRepository>();
             services.AddTransient<IRatePlanRepository, RatePlanRepository>();
             services.AddTransient<IApaleoClient, ApaleoClient>();
+            services.AddAutoMapper(typeof(Startup));
 
             services.Configure<ApaleoClientCredentials>(_configuration.GetSection(ApaleoClientCredentials.ApaleoClient));
             
             services.AddControllersWithViews();
 
-            services.AddHttpClient("apaleo", client =>
-            {
-                client.BaseAddress = new Uri(_configuration.GetValue<string>("APALEO_BASE_URL"));
-
-            });
 
             services.AddHostedService<ReservationProcessor>();
         }
@@ -64,9 +61,7 @@ namespace DevRupt.App
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Reservation}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
 

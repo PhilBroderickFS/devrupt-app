@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using DevRupt.App.Data;
-using DevRupt.App.Models;
-using DevRupt.Core.Repositories;
+using DevRupt.Core.Contracts;
+using DevRupt.Core.Models;
 
 namespace DevRupt.App.Repositories
 {
@@ -12,7 +14,30 @@ namespace DevRupt.App.Repositories
         {
         }
 
-        public async Task<Core.Models.RatePlan> GetExistingRatePlan(string id)
+        public async Task CreateRatePlanAsync(RatePlan rateplan)
+        {
+            var rateplanExists = (await FindByConditionAync(r => r.Id.Equals(rateplan.Id))).FirstOrDefault();
+
+            if (rateplanExists != null)
+            {
+                return;
+            }
+            Create(rateplan);
+            await SaveAsync();
+        }
+
+        public async Task DeleteRatePlanAsync(RatePlan rateplan)
+        {
+            Delete(rateplan);
+            await SaveAsync();
+        }
+
+        public async Task<IEnumerable<RatePlan>> GetAllRatePlansAsync()
+        {
+            return await FindAllAsync();
+        }
+
+        public async Task<RatePlan> GetExistingRatePlan(string id)
         {
             return await _applicationDbContext.RatePlans.FindAsync(id);
         }

@@ -1,65 +1,65 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DevRupt.App.Models;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using DevRupt.Core.Clients;
+using DevRupt.Core.Contracts;
+using DevRupt.Core.Models;
 
 namespace DevRupt.App.Controllers
 {
-    public class ReservationController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ReservationController : ControllerBase
     {
 
-        private readonly IHttpClientFactory _httpclientFactory;
-        private readonly IApaleoClient _apaleoClient;
-
-        public ReservationController(IHttpClientFactory httpClientFactory, IApaleoClient apaleoClient)
+        private IRepositoryWrapper _repoWrapper;
+        public ReservationController(IRepositoryWrapper repoWrapper)
         {
-            _httpclientFactory = httpClientFactory;
-            _apaleoClient = apaleoClient;
+            _repoWrapper = repoWrapper;
         }
 
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> GetReservations()
         {
-            var user = await _apaleoClient.AuthenticateClient();
+            var reservation = await _repoWrapper.Reservation.GetAllReservationsAsync();
 
-            if (user == null)
-                return View();
-
-            List<Reservation> reservationList = new List<Reservation>();
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://api.apaleo.com/booking/v1/reservations"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    reservationList = JsonConvert.DeserializeObject<List<Reservation>>(apiResponse);
-                }
-            }
-            return View(reservationList);
+            return Ok(reservation);
         }
     
 
-        [HttpPost]
-        public async Task<IActionResult> GetReservation(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetReservation(string id)
         {
-            Reservation reservation = new Reservation();
-            using (var httpClient = new HttpClient())
+            var reservation = await _repoWrapper.Reservation.GetReservationByIdAsync(id);
+
+            return Ok(reservation);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteReservation(string id)
+        {
+            var reservation = await _repoWrapper.Reservation.GetReservationByIdAsync(id);
+            if (reservation == null)
             {
-                using (var response = await httpClient.GetAsync("https://api.apaleo.com/booking/v1/reservations/" + id))
-                {
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-                        reservation = JsonConvert.DeserializeObject<Reservation>(apiResponse);
-                    }
-                    else
-                        ViewBag.StatusCode = response.StatusCode;
-                }
+                return NotFound();
             }
-            return View(reservation);
+
+            await _repoWrapper.Reservation.DeleteReservationAsync(reservation);
+            _repoWrapper.Save();
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateReservation(Reservation reservation)
+        {
+            if (reservation == null)
+            {
+                return BadRequest("Folio object is null");
+            }
+
+            await _repoWrapper.Reservation.CreateReservationAsync(reservation);
+            _repoWrapper.Save();
+
+            return CreatedAtRoute("GetReservation", new { id = reservation.Id }, reservation);
         }
     }
 }

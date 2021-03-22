@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DevRupt.Core.Contracts;
 using DevRupt.Core.Models;
-using DevRupt.Core.Repositories;
 
 namespace DevRupt.Core.Services
 {

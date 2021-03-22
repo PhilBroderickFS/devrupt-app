@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using DevRupt.App.Data;
+using DevRupt.Core.Contracts;
 using DevRupt.Core.Models;
-using DevRupt.Core.Repositories;
 
 namespace DevRupt.App.Repositories
 {
@@ -47,11 +46,15 @@ namespace DevRupt.App.Repositories
 
         }
 
-        public async Task<Reservation> GetReservationByIdAsync(int ReservationId)
+        public async Task<Reservation> GetReservationByIdAsync(string ReservationId)
         {
             var Reservation = await FindByConditionAync(o => o.Id.Equals(ReservationId));
             return Reservation.FirstOrDefault();
         }
 
+        public async Task<IEnumerable<Reservation>> GetAllReservationsAsync()
+        {
+            return await FindAllAsync();
+        }
     }
 }

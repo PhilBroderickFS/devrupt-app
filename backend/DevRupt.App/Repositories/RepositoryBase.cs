@@ -1,5 +1,5 @@
 ﻿using DevRupt.App.Data;
-using DevRupt.Data.Repositories;
+using DevRupt.Core.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
