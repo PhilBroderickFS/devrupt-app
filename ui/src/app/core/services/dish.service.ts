@@ -39,15 +39,34 @@ export class DishService {
               measurement: "ml"
             }
           ]
-        }
-      ]
-    },
-    {
-      name: "Set B",
-      compatability: 60,
-      dishes: [
+        },
         {
-          name: "Dish B",
+          name: "Dish C",
+          ingredients: [
+            {
+              name: "Ingredient A",
+              amount: 3,
+              measurement: "kg"
+            },
+            {
+              name: "Ingredient B",
+              amount: 200,
+              measurement: "ml"
+            }
+          ]
+        },
+        {
+          name: "Dish D",
+          ingredients: [
+            {
+              name: "Ingredient A",
+              amount: 3,
+              measurement: "kg"
+            }
+          ]
+        },
+        {
+          name: "Dish E",
           ingredients: [
             {
               name: "Ingredient A",
@@ -64,8 +83,8 @@ export class DishService {
       ]
     },
     {
-      name: "Set C",
-      compatability: 45,
+      name: "Set B",
+      compatability: 60,
       dishes: [
         {
           name: "Dish A",
@@ -106,20 +125,124 @@ export class DishService {
               measurement: "ml"
             }
           ]
+        },
+        {
+          name: "Dish D",
+          ingredients: [
+            {
+              name: "Ingredient A",
+              amount: 3,
+              measurement: "kg"
+            }
+          ]
+        },
+        {
+          name: "Dish E",
+          ingredients: [
+            {
+              name: "Ingredient A",
+              amount: 3,
+              measurement: "kg"
+            },
+            {
+              name: "Ingredient B",
+              amount: 200,
+              measurement: "ml"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: "Set C",
+      compatability: 45,
+      dishes: [
+        {
+          name: "Dish A",
+          ingredients: [
+            {
+              name: "Ingredient A",
+              amount: 3,
+              measurement: "kg"
+            },
+            {
+              name: "Ingredient A",
+              amount: 3,
+              measurement: "kg"
+            }
+          ]
+        },
+        {
+          name: "Dish B",
+          ingredients: [
+            {
+              name: "Ingredient A",
+              amount: 3,
+              measurement: "kg"
+            },
+            {
+              name: "Ingredient B",
+              amount: 200,
+              measurement: "ml"
+            }
+          ]
+        },
+        {
+          name: "Dish C",
+          ingredients: [
+            {
+              name: "Ingredient A",
+              amount: 3,
+              measurement: "kg"
+            },
+            {
+              name: "Ingredient B",
+              amount: 200,
+              measurement: "ml"
+            }
+          ]
+        },
+        {
+          name: "Dish D",
+          ingredients: [
+            {
+              name: "Ingredient A",
+              amount: 3,
+              measurement: "kg"
+            }
+          ]
+        },
+        {
+          name: "Dish E",
+          ingredients: [
+            {
+              name: "Ingredient A",
+              amount: 3,
+              measurement: "kg"
+            },
+            {
+              name: "Ingredient B",
+              amount: 200,
+              measurement: "ml"
+            }
+          ]
         }
       ]
     }
   ]
 
-  public set$: BehaviorSubject<Set[]> = new BehaviorSubject(this.sets);
-  public selectedSet: BehaviorSubject<Set> = new BehaviorSubject(this.sets[0]);
+  public dishesPerSet: BehaviorSubject<number> = new BehaviorSubject<number>(3);
+  filteredSetList = this.filterDishesPerSets();
+
+  public set$: BehaviorSubject<Set[]> = new BehaviorSubject(this.filteredSetList);
+  public selectedSet: BehaviorSubject<Set> = new BehaviorSubject(this.filteredSetList[0]);
   public selectedDishes: BehaviorSubject<Dish[]> = new BehaviorSubject<Dish[]>(this.selectedSet.value.dishes);
   public selectedIngredientTotals: BehaviorSubject<Ingredient[]> = new BehaviorSubject<Ingredient[]>(this.getIngredientTotals())
 
   constructor() { }
   
   setSelectedSet(name: string) {
-    let newSelectedSet = this.sets.find(set => set.name.toUpperCase() === name.toUpperCase());
+    let newSelectedSet = this.filteredSetList.find(set => set.name.toUpperCase() === name.toUpperCase());
     this.selectedSet.next(newSelectedSet);
     this.selectedDishes.next(newSelectedSet.dishes);
     this.selectedIngredientTotals.next(this.getIngredientTotals());
@@ -127,6 +250,22 @@ export class DishService {
 
   getSets(date: Date): Observable<Set[]> {
     return of(this.sets);
+  }
+
+  setDishNumber(numOfDishes: number) {
+    this.dishesPerSet.next(numOfDishes);
+    this.updateObservables();
+  }
+
+  filterDishesPerSets() : Set[] {
+    let sets: Set[] = new Array();
+    this.sets.map(set => {
+      let dishes = set.dishes.slice(0, this.dishesPerSet.value);
+      let filteredDishSet = {...set};
+      filteredDishSet.dishes = dishes;
+      sets.push(filteredDishSet);
+    })
+    return sets;
   }
 
   getIngredientTotals(): Ingredient[] {
@@ -152,5 +291,14 @@ export class DishService {
     let selectedSet = this.sets[0];
     this.setSelectedSet(selectedSet.name);
     this.set$.next(this.sets);
+  }
+
+  private updateObservables() {
+    this.filteredSetList = this.filterDishesPerSets();
+    let selectedSetName = this.selectedSet.value.name;
+    this.set$.next(this.filteredSetList);
+    this.selectedSet.next(this.filteredSetList.filter(set => set.name.toUpperCase() === selectedSetName.toUpperCase())[0]);
+    this.selectedDishes.next(this.selectedSet.value.dishes);
+    this.selectedIngredientTotals.next(this.getIngredientTotals());
   }
 }

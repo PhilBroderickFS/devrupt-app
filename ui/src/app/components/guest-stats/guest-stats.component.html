@@ -1,0 +1,7 @@
+<div class="stat-list-container">
+    <app-stat *ngFor="let statData of statDataList" 
+        [header]="statData.category"
+        [icon]="statData.icon"
+        [statList]="statData.statList"
+    ></app-stat>
+</div>

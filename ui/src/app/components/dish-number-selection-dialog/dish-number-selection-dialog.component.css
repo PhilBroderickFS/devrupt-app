@@ -30,6 +30,8 @@
 .input-container>button {
     background-color: white;
     border: none;
+    cursor: pointer;
+    font-size:30px;
 }
 
 .input-container>button:focus {
@@ -37,5 +39,11 @@
 }
 
 .dish-container {
-    border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid #3a3737;
+    width: 50px;
+    text-align: center;
+}
+
+.dish-container>span {
+    font-size: 24px;
 }
