@@ -18,7 +18,7 @@ export class MealSetComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(DishNumberSelectionDialogComponent, {
       width: '350px',
-      data: {numOfDishes: 3}
+      data: {numOfDishes: this.dishService.dishesPerSet.value}
     });
   }
 

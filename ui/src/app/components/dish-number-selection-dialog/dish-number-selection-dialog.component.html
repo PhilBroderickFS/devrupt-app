@@ -8,15 +8,17 @@
     <button (click)="decrementDishes()">
         <span class="material-icons">keyboard_arrow_left</span>
     </button>
-    <span class="dish-container">
-        {{ data.numOfDishes }}
-    </span>
+    <div class="dish-container">
+        <span>
+            {{ data.numOfDishes }}
+        </span>
+    </div>
     <button (click)="incrementDishes()">
         <span class="material-icons">keyboard_arrow_right</span>
     </button>
 </div>
 <div class="button-container">
-    <button mat-raised-button (click)="onCloseClick()">Calculate</button>
+    <button mat-raised-button (click)="applySelection()">Calculate</button>
     <a (click)="onCloseClick()" class="link-button">
         Cancel
     </a>
