@@ -1,0 +1,17 @@
+<div class="stat-container">
+    <h2>
+        <span class="material-icons">
+            {{ icon }}
+        </span>
+        {{ header }}
+    </h2>
+    <div class="stat-item-container">
+        <div *ngFor="let stat of statList" class="stat-item">
+            <span>{{ stat.description }}</span>
+            <span>{{ stat.number }}</span>
+        </div>
+    </div>
+    <div class="button-container">
+        <button mat-raised-button>See full list</button>
+    </div>
+</div>

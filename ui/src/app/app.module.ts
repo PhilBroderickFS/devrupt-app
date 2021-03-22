@@ -31,6 +31,8 @@ import { DishComponent } from './components/dish/dish.component';
 import { RecommendedSetsComponent } from './components/recommended-sets/recommended-sets.component';
 import { IngredientsListComponent } from './components/ingredients-list/ingredients-list.component';
 import { DishNumberSelectionDialogComponent } from './components/dish-number-selection-dialog/dish-number-selection-dialog.component';
+import { GuestStatsComponent } from './components/guest-stats/guest-stats.component';
+import { StatComponent } from './components/stat/stat.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { DishNumberSelectionDialogComponent } from './components/dish-number-sel
     DishComponent,
     RecommendedSetsComponent,
     IngredientsListComponent,
-    DishNumberSelectionDialogComponent
+    DishNumberSelectionDialogComponent,
+    GuestStatsComponent,
+    StatComponent
   ],
   imports: [
     BrowserModule,
