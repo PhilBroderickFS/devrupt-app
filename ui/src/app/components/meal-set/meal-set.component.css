@@ -1,0 +1,15 @@
+.meal-set-container {
+    display: flex;
+    margin-top: 40px;
+    height: 70vh;
+}
+
+.meal-set-container>.meal-set-section:nth-of-type(2) {
+    border-right: 2px solid #dedede;
+    border-left: 2px solid #dedede;
+}
+
+.meal-set-section {
+    flex-basis: 33%;
+    padding: 20px 40px;
+}

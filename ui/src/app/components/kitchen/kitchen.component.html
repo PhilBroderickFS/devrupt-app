@@ -1,4 +1,14 @@
-<div>
+<div class="link-container">
+    <a routerLink="/meal-set" class="link-button main-button">
+      <span class="material-icons">restaurant</span>
+      Generate meal sets
+    </a>
+    <a routerLink="/guest-stats" class="link-button">
+      <span class="material-icons">how_to_reg</span>
+      See total guest statistics
+    </a>
+</div>
+<div class="main-container">
     <app-calender-slider></app-calender-slider>
     <app-restaurant-list [columnsToDisplay]="this.columnsToDisplay"></app-restaurant-list>
 </div>

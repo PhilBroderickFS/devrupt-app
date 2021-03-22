@@ -1,0 +1,11 @@
+<div class="ingredients-container">
+    <h2>Total ingredient list</h2>
+    <div *ngFor="let ingredient of totalIngredients$ | async" class="ingredient-container">
+        <p>
+            {{ ingredient.name }}
+        </p>
+        <span> 
+            {{ ingredient.amount }}{{ingredient.measurement}}
+        </span>
+    </div>
+</div>

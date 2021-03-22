@@ -1,3 +1,21 @@
+table {
+    width: 100%;
+}
+
+tr.mat-row {
+    height: 70px;
+}
+
+tr.mat-row>td {
+    font-size: 16px;
+}
+
 tr.mat-row:hover {
     background: rgba(0,0,0,.04)
+}
+
+.icon-column>span {
+    float: right;
+    padding-right: 10px;
+    font-size: 30px;
 }

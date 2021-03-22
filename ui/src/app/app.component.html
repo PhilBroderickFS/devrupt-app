@@ -1,15 +1,19 @@
 <header class="page-header">
+  <div>
+    <a routerLink="/" *ngIf="!this.defaultRoute" class="back-link">
+      <span class="material-icons">
+        keyboard_arrow_left
+      </span>
+      <span>
+        PhilBroderick
+      </span>
+    </a>
+    <span *ngIf="this.defaultRoute">
+      PhilBroderick
+    </span>
+  </div>
   <h1>Guacamole</h1>
 </header>
-<mat-tab-group>
-  <mat-tab label="Management">
-    <div class="tab-container">
-      <app-management></app-management>
-    </div>
-  </mat-tab>
-  <mat-tab label="Kitchen">
-    <div class="tab-container">
-      <app-kitchen></app-kitchen>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+<div class="tab-container">
+  <router-outlet></router-outlet>
+</div>

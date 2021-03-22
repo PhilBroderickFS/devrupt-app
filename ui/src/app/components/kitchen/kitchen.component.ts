@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KitchenComponent implements OnInit {
 
-  columnsToDisplay  = ['ref', 'name'];
+  columnsToDisplay  = ['icon','id', 'name','actions'];
   constructor() { }
 
   ngOnInit(): void {

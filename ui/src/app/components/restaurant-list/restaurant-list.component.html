@@ -1,10 +1,22 @@
 <table mat-table [dataSource]="this.dataSource">
+    <ng-container matColumnDef="icon">
+        <th mat-header-cell *matHeaderCellDef width="5%" class="icon-header"></th>
+        <td mat-cell *matCellDef="let reservation" class="icon-column">
+            <span class="material-icons">
+                person
+            </span>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef width="10%">GuacID</th>
+        <td mat-cell *matCellDef="let reservation"> {{ reservation.guacID }}</td>
+    </ng-container>
     <ng-container matColumnDef="ref">
         <th mat-header-cell *matHeaderCellDef width="10%">Reservation #</th>
         <td mat-cell *matCellDef="let reservation"> {{ reservation.reservationNo }}</td>
     </ng-container>
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef width="20%">Guest Name</th>
+        <th mat-header-cell *matHeaderCellDef width="80%">Guest Name</th>
         <td mat-cell *matCellDef="let reservation">{{ reservation.guestName }}</td>
     </ng-container>
     <ng-container matColumnDef="room">
@@ -22,7 +34,7 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef width="5%"></th>
         <td mat-cell *matCellDef="let reservation">
-            <a mat-mini-fab>
+            <a routerLink="/">
                 <span class="material-icons">keyboard_arrow_right</span>
             </a></td>
     </ng-container>
