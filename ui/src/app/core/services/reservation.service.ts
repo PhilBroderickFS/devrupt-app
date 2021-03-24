@@ -27,7 +27,10 @@ export class ReservationService {
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
     let formattedDate = `${day}-${month}-${year}`;
+    const params = {
+      'arrival' : formattedDate
+    };
 
-    return this.httpClient.get<Reservation[]>(`${this.reservationsUrl}/${formattedDate}`);
+    return this.httpClient.get<Reservation[]>(`${this.reservationsUrl}`, { params: params });
   }
 }

@@ -11,6 +11,7 @@ import { Observable, forkJoin } from 'rxjs';
 })
 export class CalenderSliderComponent implements OnInit {
 
+  selectedDayIndex: number = 0;
   days$: Observable<Day[]> = this.calenderService.getNextNDays(11);
   bookings$: Observable<number[]> = this.reservationService.getNextNDayReservationNos(11);
   constructor(private calenderService : CalenderService, private reservationService: ReservationService) { }
@@ -19,12 +20,19 @@ export class CalenderSliderComponent implements OnInit {
   }
 
   onDaySelected(index: number) {
+
+    this.selectedDayIndex = index;
+    
     // quick way to get the date for a selected day as they are 2 separate observables
 
     forkJoin([this.days$, this.bookings$]).subscribe(results => {
       let day = results[0][index];
       this.calenderService.dateSelected.next(day.date);
     })
+  }
+
+  isSelectedDay(index: number) {
+    return index == this.selectedDayIndex;
   }
 
 }

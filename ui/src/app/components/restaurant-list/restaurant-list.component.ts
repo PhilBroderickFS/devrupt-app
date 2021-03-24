@@ -16,27 +16,21 @@ export class RestaurantListComponent implements OnInit {
 
   reservations: Reservation[];
   dataSource = new MatTableDataSource<Reservation>();
-  reservations2: Reservation[];
 
   constructor(
     private reservationService: ReservationService, 
-    private filterService: FilterService, 
     private calenderService: CalenderService) { }
 
   ngOnInit(): void {
     // hate all these manual subscriptions - but hey, it's a hackathon! :D
 
-    this.reservationService.getReservationsForToday()
+    this.reservationService.getReservationsForDate(new Date())
       .subscribe(response => this.dataSource.data = response);
 
 
-    this.filterService.filter.subscribe((filterValue) => {
-      this.dataSource.filter = filterValue;
-    })
-
     this.calenderService.dateSelected.subscribe((dateSelected) => {
       this.reservationService.getReservationsForDate(dateSelected)
-      .subscribe(reservations => this.reservations2 = reservations);
+      .subscribe(reservations => this.dataSource.data = reservations);
     })
 
   }

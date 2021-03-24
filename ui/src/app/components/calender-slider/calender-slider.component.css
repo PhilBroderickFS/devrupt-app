@@ -91,3 +91,7 @@
     height: 10px;
     background-color: #ffab91;
 }
+
+.selected {
+    background-color: #bbb9b9;
+}
