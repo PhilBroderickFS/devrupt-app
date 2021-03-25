@@ -47,6 +47,12 @@ namespace DevRupt.App.Data
 
         public DbSet<Address> Addresses { get; set; }
 
-    
+        public DbSet<Service> Services { get; set; }
+
+        public DbSet<ServiceTotalAmount> ServiceTotalAmounts { get; set; }
+
+        public DbSet<ServiceDate> ServiceDates { get; set; }
+
+
     }
 }

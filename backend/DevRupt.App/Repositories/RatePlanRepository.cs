@@ -37,9 +37,9 @@ namespace DevRupt.App.Repositories
             return await FindAllAsync();
         }
 
-        public async Task<RatePlan> GetExistingRatePlan(string id)
+        public async Task<RatePlan> GetExistingRatePlan(string rateplanId)
         {
-            return await _applicationDbContext.RatePlans.FindAsync(id);
+            return (await FindByConditionAync(f => f.Id.Equals(rateplanId))).FirstOrDefault();
         }
     }
 }

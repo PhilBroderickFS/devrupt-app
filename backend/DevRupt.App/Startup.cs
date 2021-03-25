@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading.Tasks;
 using DevRupt.Core.Clients;
 using DevRupt.Core.Configuration;
@@ -12,6 +11,7 @@ using DevRupt.Core.Services;
 using DevRupt.App.Data;
 using DevRupt.App.Repositories;
 using DevRupt.Core.Contracts;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace DevRupt.App
 {
@@ -43,6 +43,30 @@ namespace DevRupt.App
 
 
             services.AddHostedService<ReservationProcessor>();
+
+            services.AddSwaggerGen(c =>
+            {
+
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "coalla-phil-tayo",
+                    Description = "coalla-phil-tayo Apaleo API",
+                    TermsOfService = new System.Uri("https://google.com"),
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    {
+                        Name = "Admin",
+                        Email = string.Empty,
+                        Url = new System.Uri("https://google.com")
+
+                    },
+                    License = new Microsoft.OpenApi.Models.OpenApiLicense
+                    {
+                        Name = "License",
+                        Url = new System.Uri("https://google.com")
+                    }
+                }); ;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +80,16 @@ namespace DevRupt.App
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(option =>
+            {
+                option.DocumentTitle = $"coalla-phil-tayo API Documentation";
+                option.SwaggerEndpoint("/swagger/v1/swagger.json", "coalla-phil-tayo V1");
+                option.RoutePrefix = string.Empty;
+                option.DocExpansion(DocExpansion.None);
+            });
+
             app.UseRouting();
             app.UseAuthorization();
 
