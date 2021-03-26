@@ -1,7 +1,7 @@
 <table mat-table [dataSource]="this.dataSource">
     <ng-container matColumnDef="icon">
         <th mat-header-cell *matHeaderCellDef width="5%" class="icon-header"></th>
-        <td mat-cell *matCellDef="let reservation" class="icon-column">
+        <td mat-cell *matCellDef="let guest" class="icon-column">
             <span class="material-icons">
                 person
             </span>
@@ -9,31 +9,15 @@
     </ng-container>
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef width="10%">GuacID</th>
-        <td mat-cell *matCellDef="let reservation"> {{ reservation.guacID }}</td>
-    </ng-container>
-    <ng-container matColumnDef="ref">
-        <th mat-header-cell *matHeaderCellDef width="10%">Reservation #</th>
-        <td mat-cell *matCellDef="let reservation"> {{ reservation.reservationNo }}</td>
+        <td mat-cell *matCellDef="let guest"> {{ guest.guacID }}</td>
     </ng-container>
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef width="80%">Guest Name</th>
-        <td mat-cell *matCellDef="let reservation">{{ reservation.guestName }}</td>
-    </ng-container>
-    <ng-container matColumnDef="room">
-        <th mat-header-cell *matHeaderCellDef width="10%">Room #</th>
-        <td mat-cell *matCellDef="let reservation">{{ reservation.roomNo }}</td>
-    </ng-container>
-    <ng-container matColumnDef="arrival">
-        <th mat-header-cell *matHeaderCellDef width="20%">Arrival</th>
-        <td mat-cell *matCellDef="let reservation">{{ reservation.arrival | date: 'dd/MM/yyyy'}}</td>
-    </ng-container>
-    <ng-container matColumnDef="departure">
-        <th mat-header-cell *matHeaderCellDef width="20%">Departure</th>
-        <td mat-cell *matCellDef="let reservation">{{ reservation.departure | date: 'dd/MM/yyyy'}}</td>
+        <td mat-cell *matCellDef="let guest">{{ guest.guestName }}</td>
     </ng-container>
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef width="5%"></th>
-        <td mat-cell *matCellDef="let reservation">
+        <td mat-cell *matCellDef="let guest">
             <a routerLink="/">
                 <span class="material-icons">keyboard_arrow_right</span>
             </a></td>

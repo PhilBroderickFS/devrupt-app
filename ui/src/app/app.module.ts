@@ -1,3 +1,4 @@
+import { GuestBookingsService } from './core/services/guest-bookings.service';
 import { InMemoryReservationService } from './core/services/in-memory-reservation.service';
 import { FilterService } from './core/services/filter.service';
 import { NotificationService } from './core/services/notification.service';
@@ -9,7 +10,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RestaurantListComponent } from './components/restaurant-list/restaurant-list.component';
-import { ManagementComponent } from './components/management/management.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -20,7 +20,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { HttpClientInMemoryWebApiModule  } from 'angular-in-memory-web-api';
 import { HttpClientModule } from '@angular/common/http';
 import { KitchenComponent } from './components/kitchen/kitchen.component';
 import { CalenderSliderComponent } from './components/calender-slider/calender-slider.component';
@@ -38,7 +37,6 @@ import { StatComponent } from './components/stat/stat.component';
   declarations: [
     AppComponent,
     RestaurantListComponent,
-    ManagementComponent,
     FilterComponent,
     KitchenComponent,
     CalenderSliderComponent,
@@ -62,13 +60,9 @@ import { StatComponent } from './components/stat/stat.component';
     MatExpansionModule,
     MatDialogModule,
     HttpClientModule,
-    // TODO Only used in test - remove when ready to pull data from backend
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryReservationService, {dataEncapsulation: false}
-    ),
     AppRoutingModule
   ],
-  providers: [NotificationService, ReservationService, FilterService ],
+  providers: [NotificationService, ReservationService, FilterService, GuestBookingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

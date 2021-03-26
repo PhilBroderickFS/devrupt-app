@@ -17,3 +17,8 @@ export class Reservation {
         this.departure = departure;
     }
 }
+
+export class Guest {
+    public guacID: string;
+    public guestName: string;
+}
