@@ -41,8 +41,16 @@ namespace DevRupt.App
             
             services.AddControllersWithViews();
 
+            services.AddHttpClient<IApaleoClient, ApaleoClient>();
+            //services.AddHostedService<ReservationProcessor>();
 
-            services.AddHostedService<ReservationProcessor>();
+            services.AddCors(o =>
+            {
+                o.AddPolicy("localhost", builder =>
+                {
+                    builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -80,6 +88,8 @@ namespace DevRupt.App
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCors("localhost");
 
             app.UseSwagger();
             app.UseSwaggerUI(option =>

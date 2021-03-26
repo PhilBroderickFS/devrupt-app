@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevRupt.Core.Contracts;
 using DevRupt.Core.Models;
+using DevRupt.Core.Models.Dtos;
 
 namespace DevRupt.Core.Services
 {
@@ -56,6 +57,42 @@ namespace DevRupt.Core.Services
                 }
                 await _reservationRepository.CreateReservationAsync(reservation);
             }
+        }
+
+        public async IAsyncEnumerable<GuestBookingsDto> GetBookingsForNextDays(int numOfDays)
+        {
+            for (int i = 0; i < numOfDays; i++)
+            {
+                var date = DateTime.Today.AddDays(i);
+                var reservationForDate = await _reservationRepository.GetReservationsForDate(date);
+                var guestDtos = reservationForDate.Select(r => new GuestDto
+                {
+                    GuacId = r.PrimaryGuest.Id.ToString(),
+                    GuestName = $"{r.PrimaryGuest.FirstName} {r.PrimaryGuest.LastName}"
+                }).ToList();
+
+                yield return new GuestBookingsDto
+                {
+                    Date = date,
+                    Guests = guestDtos
+                };
+            }
+        }
+
+        public async Task<GuestBookingsDto> GetBookingsForDate(DateTime date)
+        {
+            var reservationForDate = await _reservationRepository.GetReservationsForDate(date);
+            var guestDtos = reservationForDate.Select(r => new GuestDto
+            {
+                GuacId = r.PrimaryGuest.Id.ToString(),
+                GuestName = $"{r.PrimaryGuest.FirstName} {r.PrimaryGuest.LastName}"
+            }).ToList();
+
+            return new GuestBookingsDto
+            {
+                Date = date,
+                Guests = guestDtos
+            };
         }
     }
 }

@@ -6,6 +6,7 @@ using DevRupt.App.Data;
 using DevRupt.Core.Clients;
 using DevRupt.Core.Contracts;
 using DevRupt.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevRupt.App.Repositories
 {
@@ -19,19 +20,19 @@ namespace DevRupt.App.Repositories
             _apaleoClient = apaleoClient;
         }
 
-        //public Task<IEnumerable<Reservation>> GetReservationsBetweenDates(DateTime startDate, DateTime endDate)
-        //{
-        //    var client = _apaleoClient.AuthenticateClient();
-        //    var reservations = _apaleoClient.GetReservationsFromDate(client, DateTime.Now.);
+        public Task<IEnumerable<Reservation>> GetReservationsBetweenDates(DateTime startDate, DateTime endDate)
+        {
+            //var client = _apaleoClient.AuthenticateClient();
+            //var reservations = _apaleoClient.GetReservationsFromDate(client, DateTime.Now.);
+            throw new NotImplementedException();
 
-            
 
-        //}
+        }
 
-        //public Task<DateTime> GetMostRecentReservationProcess()
-        //{
-            
-        //}
+        public Task<DateTime> GetMostRecentReservationProcess()
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task CreateReservationAsync(Reservation reservation)
         {
@@ -51,6 +52,11 @@ namespace DevRupt.App.Repositories
             Delete(reservation);
             await SaveAsync();
 
+        }
+
+        public async Task<IEnumerable<Reservation>> GetReservationsForDate(DateTime date)
+        {
+            return await _applicationDbContext.Reservations.Where(r => date > r.Arrival && date <= r.Departure).Include(r => r.PrimaryGuest).ToListAsync();
         }
 
         public async Task<Reservation> GetReservationByIdAsync(string ReservationId)

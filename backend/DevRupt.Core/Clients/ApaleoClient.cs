@@ -14,12 +14,12 @@ namespace DevRupt.Core.Clients
 {
     public class ApaleoClient : IApaleoClient
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient _httpClient;
         private readonly IOptions<ApaleoClientCredentials> _options;
 
-        public ApaleoClient(IHttpClientFactory httpClientFactory, IOptions<ApaleoClientCredentials> options)
+        public ApaleoClient(HttpClient httpClient, IOptions<ApaleoClientCredentials> options)
         {
-            _httpClientFactory = httpClientFactory;
+            _httpClient = httpClient;
             _options = options;
         }
 
@@ -32,14 +32,13 @@ namespace DevRupt.Core.Clients
                     Convert.ToBase64String(
                         Encoding.UTF8.GetBytes($"{_options.Value.ClientId}:{_options.Value.ClientSecret}"));
 
-                using var client = _httpClientFactory.CreateClient();
                 using var request =
                     new HttpRequestMessage(HttpMethod.Post, "https://identity.apaleo.com/connect/token");
                 request.Headers.Add("Authorization", $"Basic {encodedCredentials}");
 
                 request.Content = new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded");
 
-                var response = await client.SendAsync(request);
+                var response = await _httpClient.SendAsync(request);
 
                 AuthenticatedClientDto authenticatedClient = null;
                 if (response.IsSuccessStatusCode)
@@ -68,16 +67,13 @@ namespace DevRupt.Core.Clients
             
             try
             {
-                using var client = _httpClientFactory.CreateClient();
-                client.BaseAddress = new Uri("https://api.apaleo.com/");
-            
                 const string uri = "booking/v1/reservations";
                 var uriWithParams = QueryHelpers.AddQueryString(uri, queryParams);
             
                 using var request = new HttpRequestMessage(HttpMethod.Get, uriWithParams);
                 request.Headers.Add("Authorization", $"Bearer {authClient.AccessToken}");
 
-                var response = await client.SendAsync(request);
+                var response = await _httpClient.SendAsync(request);
             
                 if (response.IsSuccessStatusCode)
                 {
@@ -99,8 +95,6 @@ namespace DevRupt.Core.Clients
         /// </summary>
         public async Task AddFoliosToReservations(AuthenticatedClientDto authClient, IEnumerable<Reservation> reservations)
         {
-            using var client = _httpClientFactory.CreateClient();
-            client.BaseAddress = new Uri("https://api.apaleo.com/");
             const string uri = "finance/v1/folios";
 
             foreach (var reservation in reservations)
@@ -110,7 +104,7 @@ namespace DevRupt.Core.Clients
                  try
                  {
                      var defaultFolio =
-                         await GetFolioForReservation(defaultFolioId, client, uri, authClient.AccessToken);
+                         await GetFolioForReservation(defaultFolioId, uri, authClient.AccessToken);
 
                      reservation.Folios ??= new List<Folio>();
                      reservation.Folios.Add(defaultFolio);
@@ -120,7 +114,7 @@ namespace DevRupt.Core.Clients
                      {
                          foreach (var relatedFolio in defaultFolio.RelatedFolios)
                          {
-                             var folio = await GetFolioForReservation(relatedFolio.Id, client, uri,
+                             var folio = await GetFolioForReservation(relatedFolio.Id, uri,
                                  authClient.AccessToken);
                              reservation.Folios.Add(folio);
                          }
@@ -133,14 +127,14 @@ namespace DevRupt.Core.Clients
             }
         }
 
-        private async Task<Folio> GetFolioForReservation(string folioId, HttpClient client, string uri ,string accessToken)
+        private async Task<Folio> GetFolioForReservation(string folioId, string uri ,string accessToken)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, $"{uri}/{folioId}");
             request.Headers.Add("Authorization", $"Bearer {accessToken}");
             
             try
             {
-                var response = await client.SendAsync(request);
+                var response = await _httpClient.SendAsync(request);
 
                 if (response.IsSuccessStatusCode)
                 {
