@@ -13,5 +13,6 @@ namespace DevRupt.Core.Contracts
         Task<Reservation> GetReservationByIdAsync(string reservationId);
         Task CreateReservationAsync(Reservation reservation);
         Task DeleteReservationAsync(Reservation reservation);
+        Task<IEnumerable<Reservation>> GetReservationsForDate(DateTime date);
     }
 }

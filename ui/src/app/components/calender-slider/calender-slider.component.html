@@ -26,7 +26,7 @@
                 <td *ngFor="let bookings of bookings$ | async; let i = index" class="time-column" (click)="onDaySelected(i)">
                     <span class="cell-border" [class.selected]="isSelectedDay(i)">
                         <span class="cell-background"></span>
-                        <span class="cell-value">{{ bookings }}</span>
+                        <span class="cell-value">{{ bookings.totalBooked }}</span>
                     </span>
                 </td>
             </tr>

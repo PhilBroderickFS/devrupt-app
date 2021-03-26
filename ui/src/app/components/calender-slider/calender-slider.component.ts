@@ -1,4 +1,5 @@
-import { ReservationService } from './../../core/services/reservation.service';
+import { GuestBookings } from './../../shared/models/guest.bookings.model';
+import { GuestBookingsService } from './../../core/services/guest-bookings.service';
 import { CalenderService } from './../../core/services/calender.service';
 import { Day } from './../../shared/models/day.model';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
@@ -13,8 +14,8 @@ export class CalenderSliderComponent implements OnInit {
 
   selectedDayIndex: number = 0;
   days$: Observable<Day[]> = this.calenderService.getNextNDays(11);
-  bookings$: Observable<number[]> = this.reservationService.getNextNDayReservationNos(11);
-  constructor(private calenderService : CalenderService, private reservationService: ReservationService) { }
+  bookings$: Observable<GuestBookings[]> = this.guestBookingService.getNextNDayBookings(11);
+  constructor(private calenderService : CalenderService, private guestBookingService: GuestBookingsService) { }
 
   ngOnInit(): void {
   }

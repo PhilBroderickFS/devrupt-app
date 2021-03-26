@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using DevRupt.Core.Contracts;
 using DevRupt.Core.Models;
+using DevRupt.Core.Models.Dtos;
+using DevRupt.Core.Services;
 
 namespace DevRupt.App.Controllers
 {
@@ -11,9 +15,12 @@ namespace DevRupt.App.Controllers
     {
 
         private IRepositoryWrapper _repoWrapper;
-        public ReservationController(IRepositoryWrapper repoWrapper)
+        private readonly IReservationService _reservationService;
+
+        public ReservationController(IRepositoryWrapper repoWrapper, IReservationService reservationService)
         {
             _repoWrapper = repoWrapper;
+            _reservationService = reservationService;
         }
 
         [HttpGet]
@@ -23,15 +30,28 @@ namespace DevRupt.App.Controllers
 
             return Ok(reservation);
         }
+
+        [HttpGet("{numOfDays:int}")]
+        public IAsyncEnumerable<GuestBookingsDto> GetBookingsForNextDays(int numOfDays)
+        {
+            return _reservationService.GetBookingsForNextDays(numOfDays);
+        }
+        
+        [HttpGet("date")]
+        public Task<GuestBookingsDto> GetBookingsForDate([FromQuery] string dateStr)
+        {
+            var date = DateTime.Parse(dateStr);
+            return _reservationService.GetBookingsForDate(date);
+        }
     
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetReservation(string id)
-        {
-            var reservation = await _repoWrapper.Reservation.GetReservationByIdAsync(id);
-
-            return Ok(reservation);
-        }
+        // [HttpGet("{id}")]
+        // public async Task<IActionResult> GetReservation(string id)
+        // {
+        //     var reservation = await _repoWrapper.Reservation.GetReservationByIdAsync(id);
+        //
+        //     return Ok(reservation);
+        // }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReservation(string id)
