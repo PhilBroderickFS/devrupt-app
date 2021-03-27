@@ -34,6 +34,8 @@ namespace DevRupt.App
             services.AddTransient<IReservationRepository, ReservationRepository>();
             services.AddTransient<IFolioRepository, FolioRepository>();
             services.AddTransient<IRatePlanRepository, RatePlanRepository>();
+            services.AddTransient<IRecommendedSetRepository, RecommendedSetRepository>();
+            services.AddTransient<IRecommendationService, RecommendationService>();
             services.AddTransient<IApaleoClient, ApaleoClient>();
             services.AddAutoMapper(typeof(Startup));
 
