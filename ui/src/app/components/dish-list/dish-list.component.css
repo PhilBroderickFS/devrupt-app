@@ -2,3 +2,15 @@
     margin-top: 0;
     margin-bottom: 0;
 }
+
+.ingredient-container {
+    display: flex;
+}
+
+.ingredient-container p {
+    flex-grow: 0.6;
+}
+
+.ingredient-container span {
+    flex-grow: 2;
+}

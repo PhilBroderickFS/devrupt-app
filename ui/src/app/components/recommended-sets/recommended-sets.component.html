@@ -1,6 +1,6 @@
 <div class="recommended-sets-header">
     <h2 class="flex-basis-50">Recommended sets</h2>
-    <h2 class="flex-basis-50">Compatability</h2>
+    <h2 class="flex-basis-50">Compatibility</h2>
 </div>
 <div>
     <div *ngFor="let set of sets$ | async; let i = index;" class="set-container">
@@ -13,7 +13,7 @@
         <div class="flex-basis-50 cell-container color-{{i + 1}}">
             <span class="cell-border" [class.selected]="isSelectedSet(set.name)" (click)="selectSet(set.name)">
                 <span class="cell-background"></span>
-                <span class="cell-value">{{ set.compatability }}</span>
+                <span class="cell-value">{{ set.compatibility }}</span>
             </span>
         </div>
     </div>

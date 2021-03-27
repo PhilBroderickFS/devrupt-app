@@ -1,6 +1,7 @@
+import { GuestBookingsService } from './../../core/services/guest-bookings.service';
 import { DishService } from './../../core/services/dish.service';
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Set } from '../../shared/models/set.model';
 
 @Component({
@@ -10,12 +11,15 @@ import { Set } from '../../shared/models/set.model';
 })
 export class RecommendedSetsComponent implements OnInit {
 
-  constructor(private dishService: DishService) { }
+  @Input() guestIds: string[];
 
-  selectedSet$ = this.dishService.selectedSet;
+  constructor(private dishService: DishService, private guestBookingsService: GuestBookingsService) { }
+
   sets$ = this.dishService.set$;
+  selectedSet$ = this.dishService.selectedSet;
   
   ngOnInit(): void {
+    this.dishService.getSets(this.guestBookingsService.guestIds).subscribe(res => console.log(res));
   }
 
   selectSet(name: string) {

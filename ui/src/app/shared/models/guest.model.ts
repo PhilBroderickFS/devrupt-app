@@ -19,6 +19,6 @@ export class Reservation {
 }
 
 export class Guest {
-    public guacID: string;
+    public guacId: string;
     public guestName: string;
 }

@@ -1,7 +1,7 @@
 import { GuestBookings } from './../../shared/models/guest.bookings.model';
 import { Injectable } from '@angular/core';
 import { Observable, from, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Reservation } from '../../shared/models/guest.model';
 
@@ -11,11 +11,10 @@ import { Reservation } from '../../shared/models/guest.model';
 export class GuestBookingsService {
   private reservationsUrl = 'https://localhost:5001/api/reservation';
 
-  guestBookings: GuestBookings[] = [];
+  guestIds: string[] = [];
   constructor(private httpClient: HttpClient) { }
 
   getNextNDayBookings(numOfDays: number): Observable<GuestBookings[]> {
-
     return this.httpClient.get<GuestBookings[]>(`${this.reservationsUrl}/${numOfDays}`);
   }
 
@@ -28,6 +27,13 @@ export class GuestBookingsService {
       'dateStr' : formattedDate
     };
 
-    return this.httpClient.get<GuestBookings>(`${this.reservationsUrl}/date`, { params: params });
+    return this.httpClient.get<GuestBookings>(`${this.reservationsUrl}/date`, { params: params })
+      .pipe(
+        map(bookings => {
+          this.guestIds = [];
+          bookings.guests.map(guest => this.guestIds.push(guest.guacId))
+          return bookings;
+        })
+      )
   }
 }
