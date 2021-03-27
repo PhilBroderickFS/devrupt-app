@@ -8,9 +8,9 @@
                 x {{ dish.ingredients.length }}
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <div *ngFor="let ingredient of dish.ingredients">
+        <div *ngFor="let ingredient of dish.ingredients" class="ingredient-container">
             <p>{{ ingredient.name }}</p>
-            <span>{{ ingredient.amount }}</span>
+            <span>{{ ingredient.amount }} {{ ingredient.measurement }}</span>
         </div>
     </mat-expansion-panel>
 </mat-accordion>
