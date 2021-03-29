@@ -9,6 +9,8 @@ Submission for [DevRupt](https://www.devrupt-hospitality.com/), hosted by Apaleo
 
 ## Video
 
+## Future enhancements
+
 ## Live Demo
 
 A live version of the application is running on `INSERT URL HERE`.
