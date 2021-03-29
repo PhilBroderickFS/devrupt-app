@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRupt.App", "DevRupt.App\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRupt.Core", "DevRupt.Core\DevRupt.Core.csproj", "{7A106245-9223-4810-AD2E-B926F8DF9E85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRupt.Data", "DevRupt.Data\DevRupt.Data.csproj", "{63451D0C-26D4-47BC-BC69-E2AAC9837C74}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{7A106245-9223-4810-AD2E-B926F8DF9E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A106245-9223-4810-AD2E-B926F8DF9E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A106245-9223-4810-AD2E-B926F8DF9E85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63451D0C-26D4-47BC-BC69-E2AAC9837C74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63451D0C-26D4-47BC-BC69-E2AAC9837C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63451D0C-26D4-47BC-BC69-E2AAC9837C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63451D0C-26D4-47BC-BC69-E2AAC9837C74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

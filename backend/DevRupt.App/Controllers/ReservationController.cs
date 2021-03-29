@@ -40,7 +40,7 @@ namespace DevRupt.App.Controllers
         [HttpGet("date")]
         public Task<GuestBookingsDto> GetBookingsForDate([FromQuery] string dateStr)
         {
-            var date = DateTime.Parse(dateStr);
+            var date = DateTime.ParseExact(dateStr, "dd-MM-yyyy", null);
             return _reservationService.GetBookingsForDate(date);
         }
     

@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  frontend:
+    build:
+      context: ui
+    container_name: frontend
+    ports:
+      - 4200:4200
+  
+  backend:
+    build:
+      context: backend
+      dockerfile: DevRupt.App/Dockerfile
+    container_name: backend
+    ports:
+      - 5000:80
+      - 5001:443
+    
