@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -11,7 +12,7 @@ import { map, tap } from 'rxjs/operators';
 })
 export class DishService {
 
-  private apiUrl = 'https://localhost:5001/api/Recommendation';
+  private apiUrl = `${environment.apiBaseUrl}/Recommendation`;
 
   sets: Set[] = [
 
