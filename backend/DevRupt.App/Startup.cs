@@ -29,10 +29,13 @@ namespace DevRupt.App
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("ReservationAzureConnection")));
 
+            services.AddHttpClient();
+
             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<IReservationRepository, ReservationRepository>();
             services.AddTransient<IFolioRepository, FolioRepository>();
+            services.AddTransient<IIngredientRepository, IngredientRepository>();
             services.AddTransient<IRatePlanRepository, RatePlanRepository>();
             services.AddTransient<IRecommendedSetRepository, RecommendedSetRepository>();
             services.AddTransient<IRecommendationService, RecommendationService>();

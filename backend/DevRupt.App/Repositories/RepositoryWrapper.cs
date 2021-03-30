@@ -9,6 +9,7 @@ namespace DevRupt.App.Repositories
         private IReservationRepository _reservation;
         private IFolioRepository _folio;
         private IRatePlanRepository _rateplan;
+        private IIngredientRepository _ingredient;
 
         public RepositoryWrapper(ApplicationDbContext applicationContext)
         {
@@ -48,6 +49,18 @@ namespace DevRupt.App.Repositories
                     _rateplan = new RatePlanRepository(_applicationContext);
                 }
                 return _rateplan;
+            }
+        }
+
+        public IIngredientRepository Ingredient
+        {
+            get
+            {
+                if (_ingredient == null)
+                {
+                    _ingredient = new IngredientRepository(_applicationContext);
+                }
+                return _ingredient;
             }
         }
 

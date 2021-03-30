@@ -9,7 +9,7 @@ namespace DevRupt.Core.Services
     {
         IAsyncEnumerable<RecommendedSetDto> GetRecommendedSets(int numberOfDishes, IEnumerable<string> guestIds);
 
-        Task <IEnumerable<Meal>> GetMeals();
+        
 
     }
 }

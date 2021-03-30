@@ -8,6 +8,8 @@
 
         IReservationRepository Reservation { get; }
 
+        IIngredientRepository Ingredient { get; }
+
         void Save();
     }
 }

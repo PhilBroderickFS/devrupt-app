@@ -12,10 +12,12 @@ namespace DevRupt.App.Controllers
     public class RecommendationController : ControllerBase
     {
         private readonly IRecommendationService _recommendationService;
+        private readonly IIngredientService _ingredientService;
 
-        public RecommendationController(IRecommendationService recommendationService)
+        public RecommendationController(IRecommendationService recommendationService, IIngredientService ingredientService)
         {
             _recommendationService = recommendationService;
+            _ingredientService = ingredientService;
         }
 
         [HttpPost]
@@ -25,9 +27,9 @@ namespace DevRupt.App.Controllers
         }
 
         [HttpGet]
-        public Task <IEnumerable<Meal>> GetMealsFromExternalAPI()
+        public Task <IEnumerable<Ingredient>> GetMealsFromExternalAPI()
         {
-            return _recommendationService.GetMeals();
+            return _ingredientService.GetIngredientsFromApi();
         }
     }
 
