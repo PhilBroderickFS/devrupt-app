@@ -26,8 +26,8 @@ namespace DevRupt.App.Controllers
             return _recommendationService.GetRecommendedSets(recommendedSetRequest.NumberOfDishes, recommendedSetRequest.GuestIds);
         }
 
-        [HttpGet]
-        public Task <IEnumerable<Ingredient>> GetMealsFromExternalAPI()
+        [HttpPost]
+        public Task <IEnumerable<Ingredient>> GetIngredientsFromExternalAPI()
         {
             return _ingredientService.GetIngredientsFromApi();
         }
