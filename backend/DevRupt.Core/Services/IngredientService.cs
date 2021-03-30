@@ -1,4 +1,5 @@
-﻿using DevRupt.Core.Models;
+﻿using DevRupt.Core.Contracts;
+using DevRupt.Core.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace DevRupt.Core.Services
 {
-    class IngredientService : IIngredientService
+    public class IngredientService : IIngredientService
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IRepositoryWrapper _repoWrapper;
 
-        public IngredientService(IHttpClientFactory httpClientFactory)
+        public IngredientService(IHttpClientFactory httpClientFactory, IRepositoryWrapper repoWrapper)
         {
             _httpClientFactory = httpClientFactory;
+            _repoWrapper = repoWrapper;
         }
 
         public async Task<IEnumerable<Ingredient>> GetIngredientsFromApi()
@@ -32,14 +35,24 @@ namespace DevRupt.Core.Services
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
                     var ingredients = JsonConvert.DeserializeObject<IngredientList>(responseString);
+
+                    foreach (var ingredient in ingredients.Ingredients)
+                    {
+                        await _repoWrapper.Ingredient.CreateIngredientAsync(ingredient);
+                        _repoWrapper.Save();
+                    }
+
                     return ingredients.Ingredients;
                 }
+
+
+
             }
             catch (Exception ex)
             {
 
             }
-            return new List<Ingredient>();
+            return new List<Ingredient>(); ;
         }
     }
 }
