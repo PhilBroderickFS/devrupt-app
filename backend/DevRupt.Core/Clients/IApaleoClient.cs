@@ -10,5 +10,6 @@ namespace DevRupt.Core.Clients
         Task<AuthenticatedClientDto> AuthenticateClient();
         Task<IEnumerable<Reservation>> GetReservationsFromDate(AuthenticatedClientDto client, DateTimeOffset date);
         Task AddFoliosToReservations(AuthenticatedClientDto client, IEnumerable<Reservation> reservations);
+
     }
 }

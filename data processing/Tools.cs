@@ -17,6 +17,17 @@ namespace Predictor
             return dist;
         }
 
+        public static double Vlen(double[] a)
+        {
+            double temp = 0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                temp += Math.Pow(a[i], 2);
+            }
+            double len = Math.Sqrt(temp);
+            return len;
+        }
+
         public static double[][] Shuffle(double[][] data)
         {
             double[][] shuffled = (double[][])data.Clone();
@@ -49,6 +60,30 @@ namespace Predictor
             }
 
             return minIndex;
+        }
+
+        public static dynamic SortList(dynamic lst)
+        {
+            var size = lst.Count;
+            var lens = new double[size];
+            for (int i = 0; i < size; i++)
+            {
+                lens[i] = Vlen(lst[i]);
+            }
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = i; j < size; j++)
+                {
+                    if (lens[i] > lens[j])
+                    {
+                        var temp = lst[i];
+                        lst[i] = lst[j];
+                        lst[j] = temp;
+                    }
+                }
+            }
+            return lst;
         }
 
     }

@@ -7,8 +7,8 @@ Submission for [DevRupt](https://www.devrupt-hospitality.com/), hosted by Apaleo
 
 ## Business Case
 
-Hotels currently have a large amount of food wastage during mealtime, due to unpersonalised/excessive amounts of food.                                    
-Taken from an online study - *US restaurants generate an estimated **22 to 33 billion pounds** of food waste each year.
+Hotels currently have a large amount of food wastage during mealtime, due to unpersonalised/excessive amounts of food.                                   
+Taken from an online study - *US restaurants generate an estimated **22 to 33 billion pounds** of food waste each year. 
 Approximately **4 to 10 percent** of food purchased by restaurants is wasted before reaching the consumer. Drivers of food waste at restaurants include oversized portions, inflexibility of chain store management and extensive menu choices.*
 
 
@@ -23,36 +23,37 @@ In the end, it will help save on food waste, provide a better experience for gue
 
 ## Future enhancements
 
-Due to time constraints, a lot of what we wanted to achieve couldn't be implemented,
-but this software has a lot of potential for further development and expansion.
+Due to time constraints, a lot of what we wanted to achieve couldn't be implemented, 
+but this software has a lot of potential for further development and expansion. 
 Here are a few of our ideas:
 
-###Guest App
-Ideally we would like to develop a guest-side application that would improve the efficiency of the model and quality of service overall.
+### Guest App
+Ideally we would like to develop a guest-side application that would improve the efficiency of the model and quality of service overall. 
 The application will allow more in collection of more in-depth data than what is currently accessible through apaleo with the use of guest accounts and a rating system.
 
-###GuacID
+### GuacID
 Visitors will be able to download the application and after a brief registration/survey about their dietary preferences, an account will be created and their data linked to a unique ID.
 
-###One account for whole network
+### One account for whole network 
 Visitors can use this ID during registration in any hotel that is part of the network so that their data can be accessed right away.
 
-###Rating meals
+### Rating meals
 Visitors will be able to rate the quality of their meals, which will further inform the system.
 
-###Possibility of personalized dishes
+### Possibility of personalized dishes
 If the hotel can manage it, the application allows the possibility of personalized food service for each guest, based on their preferences.
 
-###Optimizing portion size
+### Optimizing portion size
 Based on the collected data, we would be able to provide further information about approximate portion sizes.
 
-###Full recipes and meal/ingredient descriptions
+### Full recipes and meal/ingredient descriptions
 Optimize the cooking process and help fine tune the system.
 
 
 ## Live Demo
 
 A live version of the application is running [here](https://devruptapaleo.z33.web.core.windows.net/). This doesn't currently retrieve data for a given account,
+
 it is hardcoded for a developer account as to not overload the apaleo API to retrieve all the data.
 
 A `POST` request will still need sent to apaleo's Integration API to set up the app, as described in [Setup](#setup).
@@ -106,3 +107,4 @@ Run `docker-compose up` to spin up the front and backend applications. Log in to
 - [Phil Broderick](www.philbroderick.net)
 - [Tayo Olukotun](https://github.com/tysjosh)
 - [Max Shadiy](https://www.artstation.com/enix1art)
+

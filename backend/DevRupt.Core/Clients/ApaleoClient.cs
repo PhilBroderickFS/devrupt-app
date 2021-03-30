@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using DevRupt.Core.Configuration;
@@ -88,6 +89,8 @@ namespace DevRupt.Core.Clients
             }
             return new List<Reservation>();
         }
+
+       
 
         /// <summary>
         /// Reservations from booking API doesn't include folios which will have information on amount of breakfasts

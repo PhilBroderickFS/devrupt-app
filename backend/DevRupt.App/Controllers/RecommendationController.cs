@@ -11,9 +11,10 @@ namespace DevRupt.App.Controllers
     {
         private readonly IRecommendationService _recommendationService;
 
-        public RecommendationController(IRecommendationService recommendationService)
+        public RecommendationController(IRecommendationService recommendationService, IIngredientService ingredientService)
         {
             _recommendationService = recommendationService;
+            
         }
 
         [HttpPost]
@@ -21,6 +22,8 @@ namespace DevRupt.App.Controllers
         {
             return _recommendationService.GetRecommendedSets(recommendedSetRequest.NumberOfDishes, recommendedSetRequest.GuestIds);
         }
+
+  
     }
 
     public class RecommendedSetRequest

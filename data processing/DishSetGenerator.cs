@@ -4,16 +4,16 @@ using System.Text;
 
 namespace Predictor
 {
-    class FoodGenerator
+    public class FoodGenerator
     {
-        public static dynamic Generate(Int32 n_dishes, Int32 n_ing)
+        public static double[][] Generate(Int32 n_dishes, Int32 n_ing)
         {
-            var DishSet = new Int32[n_dishes][];
+            var DishSet = new double[n_dishes][];
             Random random = new Random();
             for(int i = 0; i < n_dishes; i++)
             {
-                var Dish = new Int32[n_ing];
-                for (int j = 0; i < n_ing; j++)
+                var Dish = new double[n_ing];
+                for (int j = 0; j < n_ing; j++)
                 {
                     Dish[j] = random.Next(2);
                 }

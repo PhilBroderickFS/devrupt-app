@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using DevRupt.Core.Contracts;
 using DevRupt.Core.Models;
@@ -13,13 +14,15 @@ namespace DevRupt.Core.Services
         private readonly IReservationRepository _reservationRepository;
         private readonly IFolioRepository _folioRepository;
         private readonly IRatePlanRepository _ratePlanRepository;
+        private readonly IHttpClientFactory _httpClientFactory;
 
         public ReservationService(IReservationRepository reservationRepository, IFolioRepository folioRepository
-            , IRatePlanRepository ratePlanRepository)
+            , IRatePlanRepository ratePlanRepository, IHttpClientFactory httpClientFactory)
         {
             _reservationRepository = reservationRepository;
             _folioRepository = folioRepository;
             _ratePlanRepository = ratePlanRepository;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<IEnumerable<Reservation>> GetReservationsForDate(DateTime dateTime)
