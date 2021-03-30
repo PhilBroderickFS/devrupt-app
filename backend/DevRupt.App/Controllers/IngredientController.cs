@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace DevRupt.App.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class IngredientController: ControllerBase
     {
         private IRepositoryWrapper _repoWrapper;
