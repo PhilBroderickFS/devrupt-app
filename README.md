@@ -19,7 +19,7 @@ In the end, it will help save on food waste, provide a better experience for gue
 
 ## Video
 
-![Demo Video](https://www.loom.com/share/3a15e34441794eb9acf959d94865accc)
+https://www.loom.com/share/3a15e34441794eb9acf959d94865accc
 
 ## Future enhancements
 
