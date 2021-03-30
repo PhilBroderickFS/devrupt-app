@@ -7,6 +7,7 @@ namespace DevRupt.App
     {
         public static void Main(string[] args)
         {
+
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -16,5 +17,8 @@ namespace DevRupt.App
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+
+       
     }
 }

@@ -30,10 +30,10 @@ namespace DevRupt.App.Repositories
         {
             get
             {
-                // if (_reservation == null)
-                // {
-                //     _reservation = new ReservationRepository(_applicationContext);
-                // }
+                //if (_reservation == null)
+                //{
+                //    _reservation = new ReservationRepository(_applicationContext);
+                //}
                 return _reservation;
             }
         }

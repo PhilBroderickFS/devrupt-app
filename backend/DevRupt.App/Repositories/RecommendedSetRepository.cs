@@ -12,16 +12,18 @@ namespace DevRupt.App.Repositories
     {
         private readonly Random _rng = new();
         
+
         public RecommendedSetRepository(ApplicationDbContext applicationDbContext) 
             : base(applicationDbContext)
         {
         }
-        
+
+       
+
         /// <summary>
         /// Will retrieve from database when ready
         /// </summary>
-        public async Task<IEnumerable<Set>> GetRecommendedSetsForGuests(int numberOfSets, 
-            IEnumerable<string> guestIds)
+        public async Task<IEnumerable<Set>> GetRecommendedSetsForGuests(int numberOfSets, IEnumerable<string> guestIds)
         {            
             // TODO retrieve from database - not sure how this is going to be filtered - by guest??
             var sets = new List<Set>();
@@ -38,7 +40,9 @@ namespace DevRupt.App.Repositories
 
             return sets;
         }
+
         
+
         private int GetRandomCompatibility()
         {
             return _rng.Next(0, 101);
@@ -92,5 +96,6 @@ namespace DevRupt.App.Repositories
 
             return ingredients;
         }
+
     }
 }
