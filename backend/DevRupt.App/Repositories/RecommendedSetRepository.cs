@@ -27,12 +27,16 @@ namespace DevRupt.App.Repositories
         {            
             // TODO retrieve from database - not sure how this is going to be filtered - by guest??
             var sets = new List<Set>();
+            
+            // randomise ingredients for the sake of MVP
+            var randomisedIngredientsList = _applicationDbContext.Ingredients.ToList();
+            
             for (int i = 0; i < numberOfSets; i++)
             {
-                var dishes = GetStubDishes();
+                var dishes = GetStubDishes(randomisedIngredientsList);
                 sets.Add(new Set
                 {
-                    Name = $"Set {i}",
+                    Name = $"Set {i + 1}",
                     Compatibility = GetRandomCompatibility(),
                     Dishes = dishes.ToList()
                 });
@@ -51,16 +55,17 @@ namespace DevRupt.App.Repositories
         /// <summary>
         /// Just a stub method for now until data available in database
         /// </summary>
-        private IEnumerable<Dish> GetStubDishes()
+        private IEnumerable<Dish> GetStubDishes(List<Ingredient> ingredients)
         {
             const int maxDishes = 5;
             var dishes = new List<Dish>();
+            
             for (int i = 0; i < maxDishes; i++)
             {
                 dishes.Add(new Dish
                 {
-                    Name = $"Dish {i}",
-                    Ingredients = GetStubIngredients().ToList()
+                    Name = $"Dish {i + 1}",
+                    Ingredients = GetStubIngredients(ingredients.OrderBy(_ => Guid.NewGuid()).ToList()).ToList()
                 });
             }
 
@@ -70,31 +75,42 @@ namespace DevRupt.App.Repositories
         /// <summary>
         /// Stub method to return ingredients for dish until data available in database
         /// </summary>
-        private IEnumerable<Ingredient> GetStubIngredients()
+        private IEnumerable<Ingredient> GetStubIngredients(List<Ingredient> randomisedIngredientsList)
         {
             // just a placeholder
             var measurements = new Dictionary<int, string>
             {
-                {0, "kg"},
+                {0, "g"},
                 {1, "ml"},
                 {2, "oz"}
             };
             
-            // we won't need to define this - this will come from database 
-            var numOfIngredients = _rng.Next(0, 10);
+            var numOfIngredients = _rng.Next(1, 10);
             var ingredients = new List<Ingredient>();
 
             for (int i = 0; i < numOfIngredients; i++)
             {
+                var measurement = measurements[_rng.Next(0, 3)];
+                
                 ingredients.Add(new Ingredient
                 {
-                    Name = $"Ingredient {i}",
-                    Amount = _rng.Next(1, 1000),
-                    Measurement = measurements[_rng.Next(0, 3)]
+                    Name = randomisedIngredientsList[i].Name,
+                    Amount = GetAmountBasedOnMeasurement(measurement),
+                    Measurement = measurement
                 });
             }
 
             return ingredients;
+        }
+
+        private int GetAmountBasedOnMeasurement(string measurement)
+        {
+            return measurement switch
+            {
+                "g" or "ml" => _rng.Next(1, 1001),
+                "oz" => _rng.Next(1, 5),
+                _ => _rng.Next(1, 10)
+            };
         }
 
     }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Predictor
 {
-    class FoodGenerator
+    public class FoodGenerator
     {
-        public static dynamic Generate(Int32 n_dishes, Int32 n_ing)
+        public static double[][] Generate(Int32 n_dishes, Int32 n_ing)
         {
             var DishSet = new double[n_dishes][];
             Random random = new Random();
