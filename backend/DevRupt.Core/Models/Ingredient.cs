@@ -26,6 +26,7 @@ namespace DevRupt.Core.Models
 
     public class IngredientList
     {
+        [JsonProperty("meals")]
         public List<Ingredient> Ingredients { get; set; }
     }
 }
