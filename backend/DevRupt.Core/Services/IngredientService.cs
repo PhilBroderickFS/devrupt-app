@@ -45,8 +45,6 @@ namespace DevRupt.Core.Services
                     return ingredients.Ingredients;
                 }
 
-
-
             }
             catch (Exception ex)
             {

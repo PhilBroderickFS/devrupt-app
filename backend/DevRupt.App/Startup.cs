@@ -27,7 +27,7 @@ namespace DevRupt.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(_configuration.GetConnectionString("ReservationAzureConnection")));
+                options.UseSqlServer(_configuration.GetConnectionString("ReservationConnection")));
 
             services.AddHttpClient();
 

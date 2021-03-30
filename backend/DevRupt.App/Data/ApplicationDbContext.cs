@@ -49,7 +49,7 @@ namespace DevRupt.App.Data
 
         public DbSet<ServiceDate> ServiceDates { get; set; }
 
-        public DbSet<Dish> Dishes { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
 
 
     }
